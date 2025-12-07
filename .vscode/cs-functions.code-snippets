@@ -1,0 +1,17 @@
+{
+  "function with args": {
+    "prefix": "function with args",
+    "description": "Function with arguments",
+    "body": [
+      "export type ${1/(.*)/${1:/capitalize}/}Options = {",
+      "// ",
+      "}",
+      "",
+      "export function $1(options: ${1/(.*)/${1:/capitalize}/}Options) { ",
+      "//",
+      "$0",
+      "}"
+    ],
+    "scope": "typescript"
+  }
+}

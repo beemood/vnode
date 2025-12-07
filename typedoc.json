@@ -1,0 +1,5 @@
+{
+  "out": "./docs",
+  "entryPoints": ["./libs/**/index.ts", "./plugins/**/index.ts"],
+  "name": "Vnode Packages"
+}

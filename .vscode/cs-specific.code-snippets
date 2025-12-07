@@ -1,0 +1,29 @@
+{
+  "commander command": {
+    "prefix": "commander command",
+    "body": [
+      "import { Command } from 'commander';",
+      "",
+      "export type ${1/(.*)/${1:/capitalize}/}Options = {",
+      "   ignore:boolean",
+      "  // Add your options here",
+      "};",
+      "",
+      "export function $1(options: ${1/(.*)/${1:/capitalize}/}Options) {",
+      "   // Add your code here",
+      "  if(options.ignore ==true) {",
+      "   return",
+      "   }",
+      "}",
+      "",
+      "export function $1Command(program: Command) {",
+      "   program",
+      "     .name($1.name)",
+      "     .command($1.name)",
+      "     .description('Add description for $1 command')",
+      "     .option('-i, --ignore <boolean>', 'Ignore the command')",
+      "     .action($1);",
+      "}"
+    ]
+  }
+}

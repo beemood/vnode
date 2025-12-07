@@ -1,4 +1,12 @@
 packages:
-  - "apps/*"
-
+  - 'apps/*'
+  - 'libs/*'
+  - 'types/*'
+  - 'plugins/*'
+  - 'common/*'
 autoInstallPeers: true
+onlyBuiltDependencies:
+  - '@swc/core'
+  - 'esbuild'
+  - 'nx'
+  - 'unrs-resolver'

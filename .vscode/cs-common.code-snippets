@@ -1,0 +1,8 @@
+{
+  "export all ts files": {
+    "prefix": "export all ts files",
+    "description": "Export all ts files but spec, test, runable, and files starts with underscore",
+    "body": "// @index(['./**/*.ts', '!./**/*.{spec,test}.ts', '!./{_*,main,boot,bootstrap}.ts'], f => `export * from '${f.path}.js'`)",
+    "scope": "typescript"
+  }
+}

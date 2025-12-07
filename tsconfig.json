@@ -8,6 +8,18 @@
     },
     {
       "path": "./apps/vnode"
+    },
+    {
+      "path": "./libs/template-lib"
+    },
+    {
+      "path": "./libs/template-cli"
+    },
+    {
+      "path": "./plugins/plugin"
+    },
+    {
+      "path": "./common/errors"
     }
   ]
 }
