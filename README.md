@@ -1,7 +1,7 @@
 # @vnode/source
 
-Common nodejs libraries
+Common packages
 
-# Libraries
+## Packages
 
 - **template-lib**: Sample library
