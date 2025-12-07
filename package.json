@@ -23,7 +23,8 @@
     "prisma"
   ],
   "scripts": {
-    "doc": "npx typedoc"
+    "doc": "npx typedoc",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
