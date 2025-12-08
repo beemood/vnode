@@ -7,6 +7,18 @@ datasource db {
   provider = "postgresql"
 }
 
+generator swaggerGenerator {
+  project  = "@vnode/todo-db"
+  provider = "vnode-prisma-swagger"
+  kind     = "swagger"
+}
+
+generator zodGenerator {
+  project  = "@vnode/todo-db"
+  provider = "vnode-prisma-zod"
+  kind     = "zod"
+}
+
 enum Status {
   OPEN
   IN_PROGRESS

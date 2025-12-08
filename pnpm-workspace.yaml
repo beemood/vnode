@@ -1,11 +1,16 @@
 packages:
-  - 'apps/*'
-  - 'libs/*'
-  - 'plugins/*'
-  - 'common/*'
+  - apps/*
+  - libs/*
+  - plugins/*
+  - common/*
+  - dbs/*
+
 autoInstallPeers: true
+
 onlyBuiltDependencies:
+  - '@prisma/engines'
   - '@swc/core'
-  - 'esbuild'
-  - 'nx'
-  - 'unrs-resolver'
+  - esbuild
+  - nx
+  - prisma
+  - unrs-resolver

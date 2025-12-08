@@ -1,0 +1,66 @@
+{
+  "name": "@vnode/prisma-generators",
+  "version": "0.0.1",
+  "license": "MIT",
+  "displayName": "prisma-generators",
+  "description": "Prisma generators",
+  "keywords": [
+    "prisma",
+    "generators"
+  ],
+  "homepage": "https://beemood.github.io/dbs/prisma-generators",
+  "icon": "https://beemood.github.io/dbs/prisma-generators/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline@gmail.com",
+    "url": "https://beemood.github.io"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@vnode/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "vnode-prisma-swagger": "./bin/swagger.mjs",
+    "vnode-prisma-zod": "./bin/zod.mjs"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "license",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "sourceRoot": "dbs/prisma-generators/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "dbs/prisma-generators/dist",
+          "main": "dbs/prisma-generators/src/index.ts",
+          "tsConfig": "dbs/prisma-generators/tsconfig.lib.json",
+          "skipTypeCheck": false,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@prisma/generator-helper": "^7.1.0",
+    "@swc/helpers": "~0.5.11",
+    "@vnode/fs": "workspace:*",
+    "@vnode/logger": "workspace:*",
+    "@vnode/utils": "workspace:*"
+  }
+}

@@ -5,3 +5,11 @@ export class UndefinedError extends Error {
     this.name = UndefinedError.name;
   }
 }
+
+export class NotStringError extends Error {
+  readonly code = NotStringError.name;
+  constructor(message = '') {
+    super(`${NotStringError.name}: ${message}`);
+    this.name = NotStringError.name;
+  }
+}

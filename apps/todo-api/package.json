@@ -1,0 +1,59 @@
+{
+  "name": "@vnode/todo-api",
+  "version": "0.0.0",
+  "license": "MIT",
+  "displayName": "todo-api",
+  "description": "- [ ] Add project description for @vnode/todo-api",
+  "keywords": [],
+  "homepage": "https://beemood.github.io/apps/todo-api",
+  "icon": "https://beemood.github.io/apps/todo-api/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline@gmail.com",
+    "url": "https://beemood.github.io"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@vnode/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "license",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "sourceRoot": "apps/todo-api/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "apps/todo-api/dist",
+          "main": "apps/todo-api/src/index.ts",
+          "tsConfig": "apps/todo-api/tsconfig.lib.json",
+          "skipTypeCheck": false,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.11",
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3",
+    "@vnode/todo-db": "workspace:*"
+  }
+}

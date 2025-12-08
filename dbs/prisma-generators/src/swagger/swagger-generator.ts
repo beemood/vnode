@@ -1,0 +1,33 @@
+import helper from '@prisma/generator-helper';
+import { writeTextFile } from '@vnode/fs';
+import { stringOrThrow } from '@vnode/utils';
+import { join } from 'path';
+import { generateSwagger } from './generate-swagger.js';
+import { swaggerLogger } from './swagger-logger.js';
+
+helper.generatorHandler({
+  onGenerate: async ({ dmmf, generator }) => {
+    const project = stringOrThrow(generator.config.project, 'project');
+    const output = stringOrThrow(generator.output?.value, 'output');
+
+    swaggerLogger.log(`project: ${generator.config.project}`);
+    swaggerLogger.log(`output: ${generator.output?.value}`);
+
+    const code = generateSwagger(dmmf.datamodel, project);
+    await writeTextFile(join(output), code);
+  },
+  onManifest() {
+    return {
+      version: '0.0.1',
+      prettyName: 'Swagger Generator',
+      defaultOutput: '../src/swagger/swagger.ts',
+      config: {
+        project: {
+          type: 'string',
+          description: 'Prisma project name such as @vnode/todo-db',
+          required: true,
+        },
+      },
+    };
+  },
+});

@@ -26,6 +26,18 @@
     },
     {
       "path": "./dbs/todo-db"
+    },
+    {
+      "path": "./apps/todo-api"
+    },
+    {
+      "path": "./dbs/prisma-extentions"
+    },
+    {
+      "path": "./dbs/prisma-generators"
+    },
+    {
+      "path": "./libs/fs"
     }
   ]
 }
