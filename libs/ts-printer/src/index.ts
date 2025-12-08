@@ -1,4 +1,2 @@
 // @index(['./**/*.ts', '!./**/*.{spec,test}.ts', '!./{_*,main,boot,bootstrap}.ts'], f => `export * from '${f.path}.js'`)
-export * from './lib/checkers/value-checkers.js';
-export * from './lib/string/trim.js';
-
+export * from './lib/class/class-property-printer.js';

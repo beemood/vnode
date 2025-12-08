@@ -1,3 +1,5 @@
+import { bold, cyan, green, magenta, red, yellow } from './colors.js';
+import { Debug } from './debug.decorator.js';
 import { getStackTrace } from './get-stack-trace.js';
 
 export class Logger {
@@ -10,27 +12,30 @@ export class Logger {
     const _subContext = subContext ? ` (${subContext})` : '';
     const _context = this.context || _subContext;
     const timestamp = new Date();
-    const _finalContext = `[ ${_context} ] ${timestamp.toLocaleTimeString()}`;
+    const _finalContext = bold(
+      `[ ${_context} ] ${timestamp.toLocaleTimeString()}`
+    );
     return `${_finalContext}${_subContext}`.padEnd(this.contextWidth);
   }
 
   log(msg: string) {
-    console.log(this.ctx(), msg, getStackTrace());
+    console.log(green(this.ctx()), msg, getStackTrace());
   }
 
   info(msg: string) {
-    console.info(this.ctx(), msg, getStackTrace());
+    console.info(cyan(this.ctx()), msg, getStackTrace());
   }
 
   error(msg: string) {
-    console.error(this.ctx(), msg, getStackTrace());
+    console.error(red(this.ctx()), msg, getStackTrace());
   }
 
   warn(msg: string) {
-    console.warn(this.ctx(), msg, getStackTrace());
+    console.warn(yellow(this.ctx()), msg, getStackTrace());
   }
 
+  @Debug()
   debug(msg: string) {
-    console.debug(this.ctx(), msg, getStackTrace());
+    console.debug(magenta(this.ctx()), msg, getStackTrace(4));
   }
 }

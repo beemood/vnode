@@ -1,5 +1,5 @@
 import { DMMF } from '@prisma/generator-helper';
-import { swaggerLogger } from './swagger-logger.js';
+import { swaggerLogger } from './swagger.logger.js';
 
 export function generateSwagger(datamodel: DMMF.Datamodel, project: string) {
   const models = datamodel.models;

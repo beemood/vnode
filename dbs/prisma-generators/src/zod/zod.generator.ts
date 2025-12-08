@@ -3,7 +3,7 @@ import { writeTextFile } from '@vnode/fs';
 import { stringOrThrow } from '@vnode/utils';
 import { join } from 'path';
 import { generateZod } from './generate-zod.js';
-import { zodLogger } from './zod-logger.js';
+import { zodLogger } from './zod.logger.js';
 
 helper.generatorHandler({
   onGenerate: async ({ dmmf, generator }) => {

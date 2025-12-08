@@ -38,6 +38,9 @@
     },
     {
       "path": "./libs/fs"
+    },
+    {
+      "path": "./libs/ts-printer"
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { DMMF } from '@prisma/generator-helper';
-import { zodLogger } from './zod-logger.js';
+import { zodLogger } from './zod.logger.js';
 
 export function generateZod(datamodel: DMMF.Datamodel, project: string) {
   const models = datamodel.models;

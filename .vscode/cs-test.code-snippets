@@ -1,0 +1,15 @@
+{
+  "test each": {
+    "prefix": "test each",
+    "body": [
+      "describe('$1', () => {",
+      "  it.each`",
+      "    options      | expected",
+      "    ${{} }       | ${''}",
+      "  `('should return $expected from $options', ({ options, expected }) => {",
+      "    expect(1).toEqual(1);",
+      "  });",
+      "});"
+    ]
+  }
+}

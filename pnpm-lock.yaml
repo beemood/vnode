@@ -236,6 +236,21 @@ importers:
         specifier: ~0.5.11
         version: 0.5.17
 
+  libs/ts-printer:
+    dependencies:
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+      '@vnode/logger':
+        specifier: workspace:*
+        version: link:../../common/logger
+      '@vnode/types':
+        specifier: workspace:*
+        version: link:../../common/types
+      '@vnode/utils':
+        specifier: workspace:*
+        version: link:../../common/utils
+
   plugins/plugin:
     dependencies:
       '@nx/devkit':
