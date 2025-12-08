@@ -120,6 +120,30 @@ importers:
         specifier: ~0.5.11
         version: 0.5.17
 
+  common/logger:
+    dependencies:
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  common/types:
+    dependencies:
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  common/utils:
+    dependencies:
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+      '@vnode/errors':
+        specifier: workspace:*
+        version: link:../errors
+      '@vnode/types':
+        specifier: workspace:*
+        version: link:../types
+
   libs/template-cli:
     dependencies:
       '@swc/helpers':

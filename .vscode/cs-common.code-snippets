@@ -4,5 +4,20 @@
     "description": "Export all ts files but spec, test, runable, and files starts with underscore",
     "body": "// @index(['./**/*.ts', '!./**/*.{spec,test}.ts', '!./{_*,main,boot,bootstrap}.ts'], f => `export * from '${f.path}.js'`)",
     "scope": "typescript"
+  },
+
+  "error class": {
+    "prefix": "error class",
+    "description": "Error class structure",
+    "body": [
+      "export class $1Error extends Error {",
+      "  readonly code = $1Error.name;",
+      "  constructor(message = '') {",
+      "    super(`${$1Error.name}: \\${message}`);",
+      "    this.name = $1Error.name;",
+      "  }",
+      "}"
+    ],
+    "scope": "typescript"
   }
 }

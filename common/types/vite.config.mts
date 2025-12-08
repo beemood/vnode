@@ -2,11 +2,11 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
-  root: import.meta.dirname,
-  cacheDir: '../../node_modules/.vite/common/errors',
+  root: __dirname,
+  cacheDir: '../../node_modules/.vite/common/types',
   plugins: [],
   test: {
-    name: '@vnode/errors',
+    name: '@vnode/template-lib',
     watch: false,
     globals: true,
     environment: 'node',

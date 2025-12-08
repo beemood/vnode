@@ -2,7 +2,7 @@ import {
   formatFiles,
   generateFiles,
   names,
-  readJsonFile,
+  readJson,
   Tree,
   updateJson,
 } from '@nx/devkit';
@@ -22,31 +22,8 @@ type RequiredPackageOptions = {
   funding: string[];
 };
 
-function getOrganizationNameFromPackageName(name: string) {
-  const result = name.match(/@(.*)\//)?.[1];
-
-  if (result == undefined) {
-    throw new Error(
-      `Could not extract the orgnanization name from the package name, ${name}`
-    );
-  }
-  return result;
-}
-
-function getShortProjectNameFromDirectory(directory: string) {
-  const shortProjectName = directory.split(/\\\//).pop();
-
-  if (shortProjectName == undefined) {
-    throw new Error(
-      `Could not extract the short project name from ${directory}`
-    );
-  }
-
-  return shortProjectName;
-}
-
-function workspacePackgeJson() {
-  return readJsonFile<RequiredPackageOptions>('package.json');
+function workspacePackgeJson(tree: Tree) {
+  return readJson<RequiredPackageOptions>(tree, 'package.json');
 }
 
 function projectEmail(email: string, shortProjectName: string) {
@@ -54,22 +31,50 @@ function projectEmail(email: string, shortProjectName: string) {
   return `${first}+${shortProjectName}@${second}`;
 }
 
+function addReferenceToTsConfig(tree: Tree, directory: string) {
+  updateJson(tree, 'tsconfig.json', (value) => {
+    const projectRef = `./${directory}`;
+
+    if (value.references) {
+      if (
+        value.references.find((e: { path?: string }) => e.path == projectRef)
+      ) {
+        return value;
+      }
+    }
+
+    value.references.push({ path: projectRef });
+
+    return value;
+  });
+}
+
+function reqval<T>(value?: T | undefined): T {
+  if (value == undefined) {
+    throw new Error(`Value is required!`);
+  }
+
+  return value;
+}
+
 export async function projectGenerator(
   tree: Tree,
   options: ProjectGeneratorSchema
 ) {
+  const directory = options.directory.split(/[/\\]/).join('/');
   const commonSourceDirectory = join(__dirname, 'common');
   const sourceDirectory = join(__dirname, options.type);
-  const targetDirectory = options.directory;
-  const packageJson = workspacePackgeJson();
-  const organizationName = getOrganizationNameFromPackageName(packageJson.name);
-  const shortProjectName = getShortProjectNameFromDirectory(options.directory);
-  const projectName = `@${organizationName}/${shortProjectName}`;
+  const targetDirectory = directory;
+  const packageJson = workspacePackgeJson(tree);
+  const organizationName = reqval(packageJson.name.match(/@(.*)\//)?.[1]);
+  const shortProjectName = reqval(directory.split('/').pop());
 
+  const projectName = `@${organizationName}/${shortProjectName}`;
   const email = projectEmail(packageJson.author.email, shortProjectName);
 
   const generatorOptions = {
     ...names(shortProjectName),
+    directory,
     projectName,
     shortProjectName,
     email,
@@ -78,11 +83,7 @@ export async function projectGenerator(
 
   generateFiles(tree, commonSourceDirectory, targetDirectory, generatorOptions);
   generateFiles(tree, sourceDirectory, targetDirectory, generatorOptions);
-
-  updateJson(tree, 'tsconfig.json', (value) => {
-    value.references = [...value.references, `./${options.directory}`];
-    return value;
-  });
+  addReferenceToTsConfig(tree, directory);
   await formatFiles(tree);
 }
 

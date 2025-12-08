@@ -4,12 +4,6 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/vnode-e2e"
-    },
-    {
-      "path": "./apps/vnode"
-    },
-    {
       "path": "./libs/template-lib"
     },
     {
@@ -20,6 +14,15 @@
     },
     {
       "path": "./common/errors"
+    },
+    {
+      "path": "./common/logger"
+    },
+    {
+      "path": "./common/utils"
+    },
+    {
+      "path": "./common/types"
     }
   ]
 }

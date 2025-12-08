@@ -1,13 +1,17 @@
 {
-  "name": "<%- projectName %>",
-  "version": "<%- packageJson.version %>",
+  "name": "@vnode/types",
+  "version": "0.0.0",
   "license": "MIT",
-  "displayName":"<%- shortProjectName %>",
-  "description":"- [ ] Add project description for <%- projectName %>", 
-  "keywords":[],
-  "homepage":"<%- packageJson.homepage %>/<%- directory %>",
-  "icon":"<%- packageJson.homepage %>/<%- directory %>/assets/favicon.png",
-  "author": <%- JSON.stringify(packageJson.author) %>,
+  "displayName": "types",
+  "description": "- [ ] Add project description for @vnode/types",
+  "keywords": [],
+  "homepage": "https://beemood.github.io/common/types",
+  "icon": "https://beemood.github.io/common/types/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline@gmail.com",
+    "url": "https://beemood.github.io"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -15,7 +19,7 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "<%- packageJson.name %>": "./src/index.ts",
+      "@vnode/source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
@@ -27,7 +31,7 @@
     "!**/*.tsbuildinfo"
   ],
   "nx": {
-    "sourceRoot": "<%- directory %>/src",
+    "sourceRoot": "common/types/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -35,9 +39,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "<%- directory %>/dist",
-          "main": "<%- directory %>/src/index.ts",
-          "tsConfig": "<%- directory %>/tsconfig.lib.json",
+          "outputPath": "common/types/dist",
+          "main": "common/types/src/index.ts",
+          "tsConfig": "common/types/tsconfig.lib.json",
           "skipTypeCheck": false,
           "stripLeadingPaths": true
         }

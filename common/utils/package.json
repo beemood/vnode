@@ -1,0 +1,56 @@
+{
+  "name": "@vnode/utils",
+  "version": "0.0.0",
+  "license": "MIT",
+  "displayName": "utils",
+  "description": "- [ ] Add project description for @vnode/utils",
+  "keywords": [],
+  "homepage": "https://beemood.github.io/common/utils",
+  "icon": "https://beemood.github.io/common/utils/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline@gmail.com",
+    "url": "https://beemood.github.io"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@vnode/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "license",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "sourceRoot": "common/utils/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "common/utils/dist",
+          "main": "common/utils/src/index.ts",
+          "tsConfig": "common/utils/tsconfig.lib.json",
+          "skipTypeCheck": false,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.11",
+    "@vnode/errors": "workspace:*",
+    "@vnode/types": "workspace:*"
+  }
+}
