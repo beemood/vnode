@@ -1,7 +1,6 @@
 packages:
   - 'apps/*'
   - 'libs/*'
-  - 'types/*'
   - 'plugins/*'
   - 'common/*'
 autoInstallPeers: true
