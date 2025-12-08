@@ -57,6 +57,7 @@ export async function projectGenerator(
   tree: Tree,
   options: ProjectGeneratorSchema
 ) {
+  const commonSourceDirectory = join(__dirname, 'common');
   const sourceDirectory = join(__dirname, options.type);
   const targetDirectory = options.directory;
   const packageJson = workspacePackgeJson();
@@ -66,13 +67,16 @@ export async function projectGenerator(
 
   const email = projectEmail(packageJson.author.email, shortProjectName);
 
-  generateFiles(tree, sourceDirectory, targetDirectory, {
+  const generatorOptions = {
     ...names(shortProjectName),
     projectName,
-    email,
     shortProjectName,
+    email,
     packageJson,
-  });
+  };
+
+  generateFiles(tree, commonSourceDirectory, targetDirectory, generatorOptions);
+  generateFiles(tree, sourceDirectory, targetDirectory, generatorOptions);
   await formatFiles(tree);
 }
 
