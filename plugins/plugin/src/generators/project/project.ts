@@ -4,6 +4,7 @@ import {
   names,
   readJsonFile,
   Tree,
+  updateJson,
 } from '@nx/devkit';
 import { join } from 'path';
 import { ProjectGeneratorSchema } from './schema';
@@ -77,6 +78,11 @@ export async function projectGenerator(
 
   generateFiles(tree, commonSourceDirectory, targetDirectory, generatorOptions);
   generateFiles(tree, sourceDirectory, targetDirectory, generatorOptions);
+
+  updateJson(tree, 'tsconfig.json', (value) => {
+    value.references = [...value.references, `./${options.directory}`];
+    return value;
+  });
   await formatFiles(tree);
 }
 
