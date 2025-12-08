@@ -1,6 +1,20 @@
 {
   "name": "@vnode/plugin",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "license": "MIT",
+  "displayName": "plugin",
+  "description": "Executors and generators",
+  "keywords": [
+    "types",
+    "interfaces"
+  ],
+  "homepage": "https://beemood.github.io/plugins/plugin",
+  "icon": "https://beemood.github.io/plugins/plugin/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline@gmail.com",
+    "url": "https://beemood.github.io"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

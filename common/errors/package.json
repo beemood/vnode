@@ -1,6 +1,19 @@
 {
   "name": "@vnode/errors",
-  "version": "0.0.1",
+  "license": "MIT",
+  "version": "0.0.0",
+  "displayName": "errors",
+  "description": "Error classes",
+  "keywords": [
+    "error"
+  ],
+  "homepage": "https://beemood.github.io/common/errors",
+  "icon": "https://beemood.github.io/common/errors/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline+errors@gmail.com",
+    "url": "https://beemood.github.io"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

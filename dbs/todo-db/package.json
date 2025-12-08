@@ -1,0 +1,82 @@
+{
+  "name": "@vnode/todo-db",
+  "version": "0.0.0",
+  "license": "MIT",
+  "displayName": "todo-db",
+  "description": "Todo database",
+  "keywords": [],
+  "homepage": "https://beemood.github.io/dbs/todo-db",
+  "icon": "https://beemood.github.io/dbs/todo-db/assets/favicon.png",
+  "author": {
+    "name": "Robert Brightline",
+    "email": "robert.brightline@gmail.com",
+    "url": "https://beemood.github.io"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@vnode/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "license",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "sourceRoot": "dbs/todo-db/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "dbs/todo-db/dist",
+          "main": "dbs/todo-db/src/index.ts",
+          "tsConfig": "dbs/todo-db/tsconfig.lib.json",
+          "skipTypeCheck": false,
+          "stripLeadingPaths": true
+        }
+      },
+      "serve": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma dev",
+          "cwd": "{projectRoot}"
+        }
+      },
+      "prisma-migrate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma migrate dev --name updated",
+          "cwd": "{projectRoot}"
+        }
+      },
+      "prisma-generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma generate",
+          "cwd": "{projectRoot}"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "@swc/helpers": "~0.5.11",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "prisma": "^7.1.0"
+  }
+}

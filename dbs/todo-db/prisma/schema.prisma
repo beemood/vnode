@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  CLOSES
+}
+
+model Category {
+  id Int @id
+
+  name String @unique @db.VarChar(255)
+
+  todos Todo[]
+}
+
+model Todo {
+  id Int @id
+
+  title String @unique @db.VarChar(255)
+
+  description String?
+
+  status Status @default(OPEN)
+
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+
+  @@index([status])
+}

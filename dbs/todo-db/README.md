@@ -1,14 +1,14 @@
-<p align="center"> <img src="https://beemood.github.io/common/errors/assets/favicon.png" alt="Logo" /> </p>
+<p align="center"> <img src="https://beemood.github.io/dbs/todo-db/assets/favicon.png" alt="Logo" /> </p>
 
-# @vnode/errors
+# @vnode/todo-db
 
-Error classes
+- [ ] Add project description for @vnode/todo-db
 
-[Contact us](mailto:robert.brightline+logger@gmail.com?subject=@vnode/errors)
+[Contact us](mailto:robert.brightline+todo-db@gmail.com?subject=@vnode/todo-db)
 
 ## Install
 
-`pnpm add @vnode/errors`
+`pnpm add @vnode/todo-db`
 
 ## Funding
 

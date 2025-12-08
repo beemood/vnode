@@ -3,8 +3,10 @@
   "license": "MIT",
   "version": "0.0.0",
   "displayName": "logger",
-  "description": "- [ ] Add project description for @vnode/logger",
-  "keywords": [],
+  "description": "-Logger",
+  "keywords": [
+    "logger"
+  ],
   "homepage": "https://beemood.github.io/common/logger",
   "icon": "https://beemood.github.io/common/logger/assets/favicon.png",
   "author": {

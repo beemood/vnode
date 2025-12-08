@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "displayName": "types",
-  "description": "- [ ] Add project description for @vnode/types",
-  "keywords": [],
+  "description": "Types",
+  "keywords": [
+    "types",
+    "interfaces"
+  ],
   "homepage": "https://beemood.github.io/common/types",
   "icon": "https://beemood.github.io/common/types/assets/favicon.png",
   "author": {
