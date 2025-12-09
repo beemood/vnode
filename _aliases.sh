@@ -1,7 +1,11 @@
-# General Build Alias (can remain an alias or be a function if it takes args)
+#!/bin/bash
+
 alias build="npx nx run-many -t build"
 
-# Conventional Commit Functions
+git-push() {
+    git push
+}
+
 git-feat() {
     git add . && git commit -m"feat: $1"
 }
