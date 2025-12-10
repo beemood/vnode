@@ -15,6 +15,33 @@ export function isDefined<T>(value: Nullable<T>): value is T {
 }
 
 /**
+ * Check the given {@link value} is not an empty-array
+ * @param value
+ * @returns
+ */
+export function isNotEmptyArray<T>(value?: Nullable<T[]>): value is T[] {
+  if (isDefined(value) && value.length > 0) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Check the given {@link value} is a none-empty string
+ * @param value
+ * @returns
+ */
+export function isNotEmptyString(value: Nullable<string>): value is string {
+  if (isDefined(value)) {
+    if (value.trim().length > 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
  * Check the given {@link value} is defined.
  * If defined, return the {@link value}, otherwise throw {@link UndefinedError}
  * @template T type of the value

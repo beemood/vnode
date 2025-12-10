@@ -70,6 +70,7 @@
     }
   },
   "dependencies": {
+    "@nestjs/swagger": "^11.2.3",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "@swc/helpers": "~0.5.11",

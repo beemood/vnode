@@ -57,10 +57,14 @@
     }
   },
   "dependencies": {
+    "@nestjs/swagger": "^11.2.3",
     "@prisma/generator-helper": "^7.1.0",
     "@swc/helpers": "~0.5.11",
+    "@vnode/errors": "workspace:*",
     "@vnode/fs": "workspace:*",
     "@vnode/logger": "workspace:*",
+    "@vnode/ts-printer": "workspace:*",
+    "@vnode/types": "workspace:*",
     "@vnode/utils": "workspace:*"
   }
 }

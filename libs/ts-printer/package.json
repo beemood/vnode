@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
+    "@vnode/errors": "workspace:*",
     "@vnode/logger": "workspace:*",
     "@vnode/types": "workspace:*",
     "@vnode/utils": "workspace:*"

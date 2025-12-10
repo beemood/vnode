@@ -13,3 +13,19 @@ export class NotStringError extends Error {
     this.name = NotStringError.name;
   }
 }
+
+export class NotMatchedError extends Error {
+  readonly code = NotMatchedError.name;
+  constructor(message = '') {
+    super(`${NotMatchedError.name}: ${message}`);
+    this.name = NotMatchedError.name;
+  }
+}
+
+export class NotImplementedError extends Error {
+  readonly code = NotImplementedError.name;
+  constructor(message = '') {
+    super(`${NotImplementedError.name}: ${message}`);
+    this.name = NotImplementedError.name;
+  }
+}
