@@ -1,6 +1,6 @@
 import { PropertyPrinter } from '@vnode/ts-printer';
+import { isRequiredField } from '../../helpers/field-type-checkers.js';
 import { getFullType } from '../../helpers/get-full-type.js';
-import { isRequiredField } from '../../helpers/is-required-field.js';
 import type { Field, Model } from '../../types/prisma.js';
 import { DtoPropertyDecoratorPrinter } from './dto-property-decorator-printer.js';
 

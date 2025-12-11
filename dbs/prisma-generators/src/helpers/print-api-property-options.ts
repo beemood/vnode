@@ -1,9 +1,9 @@
 import { ApiPropertyOptions } from '@nestjs/swagger';
 import { DMMF } from '@prisma/generator-helper';
 import { NotSupporedError } from '@vnode/errors';
-import { PrismaScalarType } from 'src/types/prisma.js';
+import { PrismaScalarType } from '../types/prisma.js';
 import { createDocumentation } from './create-documentation.js';
-import { isRequiredField } from './is-required-field.js';
+import { isRequiredField } from './field-type-checkers.js';
 
 export function printApiPropertyOptions(
   model: DMMF.Model,

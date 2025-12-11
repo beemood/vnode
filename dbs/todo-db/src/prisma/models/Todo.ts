@@ -38,6 +38,9 @@ export type TodoSumAggregateOutputType = {
 
 export type TodoMinAggregateOutputType = {
   id: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
   title: string | null
   description: string | null
   status: $Enums.Status | null
@@ -46,6 +49,9 @@ export type TodoMinAggregateOutputType = {
 
 export type TodoMaxAggregateOutputType = {
   id: number | null
+  createdAt: Date | null
+  updatedAt: Date | null
+  deletedAt: Date | null
   title: string | null
   description: string | null
   status: $Enums.Status | null
@@ -54,6 +60,9 @@ export type TodoMaxAggregateOutputType = {
 
 export type TodoCountAggregateOutputType = {
   id: number
+  createdAt: number
+  updatedAt: number
+  deletedAt: number
   title: number
   description: number
   status: number
@@ -74,6 +83,9 @@ export type TodoSumAggregateInputType = {
 
 export type TodoMinAggregateInputType = {
   id?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
   title?: true
   description?: true
   status?: true
@@ -82,6 +94,9 @@ export type TodoMinAggregateInputType = {
 
 export type TodoMaxAggregateInputType = {
   id?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
   title?: true
   description?: true
   status?: true
@@ -90,6 +105,9 @@ export type TodoMaxAggregateInputType = {
 
 export type TodoCountAggregateInputType = {
   id?: true
+  createdAt?: true
+  updatedAt?: true
+  deletedAt?: true
   title?: true
   description?: true
   status?: true
@@ -185,9 +203,12 @@ export type TodoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type TodoGroupByOutputType = {
   id: number
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date | null
   title: string
   description: string | null
-  status: $Enums.Status
+  status: $Enums.Status | null
   categoryId: number | null
   _count: TodoCountAggregateOutputType | null
   _avg: TodoAvgAggregateOutputType | null
@@ -216,18 +237,24 @@ export type TodoWhereInput = {
   OR?: Prisma.TodoWhereInput[]
   NOT?: Prisma.TodoWhereInput | Prisma.TodoWhereInput[]
   id?: Prisma.IntFilter<"Todo"> | number
+  createdAt?: Prisma.DateTimeFilter<"Todo"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Todo"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Todo"> | Date | string | null
   title?: Prisma.StringFilter<"Todo"> | string
   description?: Prisma.StringNullableFilter<"Todo"> | string | null
-  status?: Prisma.EnumStatusFilter<"Todo"> | $Enums.Status
+  status?: Prisma.EnumStatusNullableFilter<"Todo"> | $Enums.Status | null
   categoryId?: Prisma.IntNullableFilter<"Todo"> | number | null
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
 }
 
 export type TodoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.CategoryOrderByWithRelationInput
 }
@@ -238,17 +265,23 @@ export type TodoWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TodoWhereInput | Prisma.TodoWhereInput[]
   OR?: Prisma.TodoWhereInput[]
   NOT?: Prisma.TodoWhereInput | Prisma.TodoWhereInput[]
+  createdAt?: Prisma.DateTimeFilter<"Todo"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Todo"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Todo"> | Date | string | null
   description?: Prisma.StringNullableFilter<"Todo"> | string | null
-  status?: Prisma.EnumStatusFilter<"Todo"> | $Enums.Status
+  status?: Prisma.EnumStatusNullableFilter<"Todo"> | $Enums.Status | null
   categoryId?: Prisma.IntNullableFilter<"Todo"> | number | null
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
 }, "id" | "title">
 
 export type TodoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TodoCountOrderByAggregateInput
   _avg?: Prisma.TodoAvgOrderByAggregateInput
@@ -262,64 +295,85 @@ export type TodoScalarWhereWithAggregatesInput = {
   OR?: Prisma.TodoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TodoScalarWhereWithAggregatesInput | Prisma.TodoScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Todo"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Todo"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Todo"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Todo"> | Date | string | null
   title?: Prisma.StringWithAggregatesFilter<"Todo"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Todo"> | string | null
-  status?: Prisma.EnumStatusWithAggregatesFilter<"Todo"> | $Enums.Status
+  status?: Prisma.EnumStatusNullableWithAggregatesFilter<"Todo"> | $Enums.Status | null
   categoryId?: Prisma.IntNullableWithAggregatesFilter<"Todo"> | number | null
 }
 
 export type TodoCreateInput = {
-  id: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   title: string
   description?: string | null
-  status?: $Enums.Status
+  status?: $Enums.Status | null
   category?: Prisma.CategoryCreateNestedOneWithoutTodosInput
 }
 
 export type TodoUncheckedCreateInput = {
-  id: number
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   title: string
   description?: string | null
-  status?: $Enums.Status
+  status?: $Enums.Status | null
   categoryId?: number | null
 }
 
 export type TodoUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
   category?: Prisma.CategoryUpdateOneWithoutTodosNestedInput
 }
 
 export type TodoUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TodoCreateManyInput = {
-  id: number
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   title: string
   description?: string | null
-  status?: $Enums.Status
+  status?: $Enums.Status | null
   categoryId?: number | null
 }
 
 export type TodoUpdateManyMutationInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
 }
 
 export type TodoUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
   categoryId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -335,6 +389,9 @@ export type TodoOrderByRelationAggregateInput = {
 
 export type TodoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -348,6 +405,9 @@ export type TodoAvgOrderByAggregateInput = {
 
 export type TodoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -356,6 +416,9 @@ export type TodoMaxOrderByAggregateInput = {
 
 export type TodoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -413,30 +476,27 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type EnumStatusFieldUpdateOperationsInput = {
-  set?: $Enums.Status
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type NullableEnumStatusFieldUpdateOperationsInput = {
+  set?: $Enums.Status | null
 }
 
 export type TodoCreateWithoutCategoryInput = {
-  id: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   title: string
   description?: string | null
-  status?: $Enums.Status
+  status?: $Enums.Status | null
 }
 
 export type TodoUncheckedCreateWithoutCategoryInput = {
-  id: number
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   title: string
   description?: string | null
-  status?: $Enums.Status
+  status?: $Enums.Status | null
 }
 
 export type TodoCreateOrConnectWithoutCategoryInput = {
@@ -470,44 +530,61 @@ export type TodoScalarWhereInput = {
   OR?: Prisma.TodoScalarWhereInput[]
   NOT?: Prisma.TodoScalarWhereInput | Prisma.TodoScalarWhereInput[]
   id?: Prisma.IntFilter<"Todo"> | number
+  createdAt?: Prisma.DateTimeFilter<"Todo"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Todo"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Todo"> | Date | string | null
   title?: Prisma.StringFilter<"Todo"> | string
   description?: Prisma.StringNullableFilter<"Todo"> | string | null
-  status?: Prisma.EnumStatusFilter<"Todo"> | $Enums.Status
+  status?: Prisma.EnumStatusNullableFilter<"Todo"> | $Enums.Status | null
   categoryId?: Prisma.IntNullableFilter<"Todo"> | number | null
 }
 
 export type TodoCreateManyCategoryInput = {
-  id: number
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   title: string
   description?: string | null
-  status?: $Enums.Status
+  status?: $Enums.Status | null
 }
 
 export type TodoUpdateWithoutCategoryInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
 }
 
 export type TodoUncheckedUpdateWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
 }
 
 export type TodoUncheckedUpdateManyWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  status?: Prisma.NullableEnumStatusFieldUpdateOperationsInput | $Enums.Status | null
 }
 
 
 
 export type TodoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -517,6 +594,9 @@ export type TodoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type TodoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -526,6 +606,9 @@ export type TodoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type TodoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
@@ -535,13 +618,16 @@ export type TodoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type TodoSelectScalar = {
   id?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  deletedAt?: boolean
   title?: boolean
   description?: boolean
   status?: boolean
   categoryId?: boolean
 }
 
-export type TodoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "categoryId", ExtArgs["result"]["todo"]>
+export type TodoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "deletedAt" | "title" | "description" | "status" | "categoryId", ExtArgs["result"]["todo"]>
 export type TodoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Todo$categoryArgs<ExtArgs>
 }
@@ -555,13 +641,19 @@ export type TodoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $TodoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Todo"
   objects: {
+    /**
+     * @readonly 
+     */
     category: Prisma.$CategoryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
     title: string
     description: string | null
-    status: $Enums.Status
+    status: $Enums.Status | null
     categoryId: number | null
   }, ExtArgs["result"]["todo"]>
   composites: {}
@@ -988,6 +1080,9 @@ export interface Prisma__TodoClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface TodoFieldRefs {
   readonly id: Prisma.FieldRef<"Todo", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Todo", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Todo", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Todo", 'DateTime'>
   readonly title: Prisma.FieldRef<"Todo", 'String'>
   readonly description: Prisma.FieldRef<"Todo", 'String'>
   readonly status: Prisma.FieldRef<"Todo", 'Status'>

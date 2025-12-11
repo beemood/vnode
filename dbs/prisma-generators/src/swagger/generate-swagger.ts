@@ -1,6 +1,11 @@
 import { DMMF } from '@prisma/generator-helper';
 import { ImportPrinter } from '@vnode/ts-printer';
+import { CreateDtoClassPrinter } from './class-printers/create-dto-class-printer.js';
+import { OwnCreateDtoClassPrinter } from './class-printers/own-create-dto-class-printer.js';
 import { OwnReadDtoClassPrinter } from './class-printers/own-read-dto-class-printer.js';
+import { OwnUpdateDtoClassPrinter } from './class-printers/own-update-dto-class-printer.js';
+import { ReadDtoClassPrinter } from './class-printers/read-dto-class-printer.js';
+import { UpdateDtoClassPrinter } from './class-printers/update-dto-class-printer.js';
 import { swaggerLogger } from './swagger.logger.js';
 
 export function generateSwagger(datamodel: DMMF.Datamodel, project: string) {
@@ -37,13 +42,19 @@ export function generateSwagger(datamodel: DMMF.Datamodel, project: string) {
     }).print()
   );
 
-  const ownReadDtoClasses = models
-    .map((model) => {
-      return new OwnReadDtoClassPrinter(model).print();
-    })
-    .join('\n\n');
-
-  printedCode.push(ownReadDtoClasses);
+  for (const printer of [
+    OwnReadDtoClassPrinter,
+    OwnCreateDtoClassPrinter,
+    OwnUpdateDtoClassPrinter,
+    ReadDtoClassPrinter,
+    CreateDtoClassPrinter,
+    UpdateDtoClassPrinter,
+  ]) {
+    const generated = models
+      .map((model) => new printer(model).print())
+      .join('\n\n');
+    printedCode.push(generated);
+  }
 
   swaggerLogger.debug(`project : ${project}`);
   swaggerLogger.debug(`models: ${models.map((e) => e.name).join(', ')} `);

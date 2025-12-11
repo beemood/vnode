@@ -1,7 +1,11 @@
 import { DMMF } from '@prisma/generator-helper';
-import { isGeneratedField } from './is-generated-field.js';
-import { isRequiredField } from './is-required-field.js';
-import { isUnqiueField } from './is-unique-field.js';
+import {
+  isGeneratedField,
+  isInternalField,
+  isRequiredField,
+  isTimestampField,
+  isUnqiueField,
+} from './field-type-checkers.js';
 
 export function createDocumentation(model: DMMF.Model, field: DMMF.Field) {
   const docs: string[] = [];
@@ -19,5 +23,14 @@ export function createDocumentation(model: DMMF.Model, field: DMMF.Field) {
   if (isGeneratedField(field)) {
     docs.push(`generated`);
   }
+
+  if (isInternalField(field)) {
+    docs.push('internal');
+  }
+
+  if (isTimestampField(field)) {
+    docs.push('timestamp');
+  }
+
   return docs.join(', ');
 }

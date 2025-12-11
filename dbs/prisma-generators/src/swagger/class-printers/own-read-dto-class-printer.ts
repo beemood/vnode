@@ -1,3 +1,7 @@
+import {
+  isInternalField,
+  isRelationField,
+} from '../../helpers/field-type-checkers.js';
 import { DtoNameSuffixes } from '../../types/name-variants.js';
 import { Field, Model } from '../../types/prisma.js';
 import { DtoClassPrinter } from '../base-printers/dto-class-printer.js';
@@ -10,10 +14,8 @@ export class OwnReadDtoClassPrinter extends DtoClassPrinter {
   protected override map(field: Field): Field {
     return {
       ...field,
-      isRequired: false,
-      isUnique: false,
-      isGenerated: false,
-      isId: false,
+      isRequired: true,
+      isUpdatedAt: false,
     };
   }
 
@@ -22,6 +24,9 @@ export class OwnReadDtoClassPrinter extends DtoClassPrinter {
   }
 
   protected override filter(field: Field): boolean {
-    return field.relationName == undefined;
+    if (isRelationField(field) || isInternalField(field)) {
+      return false;
+    }
+    return true;
   }
 }

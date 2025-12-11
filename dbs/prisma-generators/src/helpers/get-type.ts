@@ -1,6 +1,6 @@
 import { DMMF } from '@prisma/generator-helper';
 import { NotMatchedError } from '@vnode/errors';
-import { PrismaScalarType } from 'src/types/prisma.js';
+import { PrismaScalarType } from '../types/prisma.js';
 
 export function getType(field: DMMF.Field, dtoSuffix: string): string {
   switch (field.kind) {

@@ -1,3 +1,9 @@
+import {
+  isGeneratedField,
+  isInternalField,
+  isRelationField,
+  isTimestampField,
+} from '../../helpers/field-type-checkers.js';
 import { DtoNameSuffixes } from '../../types/name-variants.js';
 import { Field } from '../../types/prisma.js';
 import { DtoClassPrinter } from '../base-printers/dto-class-printer.js';
@@ -8,6 +14,15 @@ export class OwnCreateDtoClassPrinter extends DtoClassPrinter {
   }
 
   protected override filter(field: Field): boolean {
-    return field.relationName == undefined;
+    if (
+      isRelationField(field) ||
+      isInternalField(field) ||
+      isTimestampField(field) ||
+      isGeneratedField(field)
+    ) {
+      return false;
+    }
+
+    return true;
   }
 }
