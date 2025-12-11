@@ -55,6 +55,16 @@ model Todo {
 
   description String?
 
+  active Boolean?
+
+  notes String[]
+
+  scores Int[]
+
+  record Json
+
+  records Json[]
+
   status Status? @default(OPEN)
 
   /// @readonly 

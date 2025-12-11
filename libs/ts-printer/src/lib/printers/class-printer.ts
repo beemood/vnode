@@ -8,27 +8,31 @@ export abstract class ClassPrinter extends AbstractPrinter<ClassPrinterOptions> 
     super(options);
   }
 
-  protected printProperties() {
+  protected printPropertyTypeSuffix(options: any) {
+    return '';
+  }
+
+  protected printProperties(): string {
     throw new NotImplementedError();
   }
 
-  protected printExtends() {
+  protected printExtends(): string {
     return '';
   }
 
-  protected printGenerics() {
+  protected printGenerics(): string {
     return '';
   }
 
-  protected printImplements() {
+  protected printImplements(): string {
     return '';
   }
 
-  protected printClassType() {
+  protected printClassType(): string {
     return ' class ';
   }
 
-  protected printAccessModifer() {
+  protected printAccessModifer(): string {
     return 'export';
   }
 

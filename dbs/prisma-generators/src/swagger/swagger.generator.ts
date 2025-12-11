@@ -3,15 +3,15 @@ import { writeTextFile } from '@vnode/fs';
 import { stringOrThrow } from '@vnode/utils';
 import { join } from 'path';
 import { generateSwagger } from './generate-swagger.js';
-import { swaggerLogger } from './swagger.logger.js';
+import { swaggerLogger as logger } from './swagger.logger.js';
 
 helper.generatorHandler({
   onGenerate: async ({ dmmf, generator }) => {
     const project = stringOrThrow(generator.config.project, 'project');
     const output = stringOrThrow(generator.output?.value, 'output');
 
-    swaggerLogger.debug(`project: ${generator.config.project}`);
-    swaggerLogger.debug(`output: ${generator.output?.value}`);
+    logger.debug(`Generator Options:  project: ${generator.config.project}`);
+    logger.debug(`Generator Options:  output:  ${generator.output?.value}`);
 
     const code = generateSwagger(dmmf.datamodel, project);
     await writeTextFile(join(output), code);

@@ -1,46 +1,25 @@
 import { DMMF } from '@prisma/generator-helper';
-import { ImportPrinter } from '@vnode/ts-printer';
 import { CreateDtoClassPrinter } from './class-printers/create-dto-class-printer.js';
+import { IncludeDtoClassPrinter } from './class-printers/include-dto-class-printer.js';
 import { OwnCreateDtoClassPrinter } from './class-printers/own-create-dto-class-printer.js';
+import { OwnProjectionDtoClassPrinter } from './class-printers/own-projection-dto-class-printer copy.js';
 import { OwnReadDtoClassPrinter } from './class-printers/own-read-dto-class-printer.js';
+import { OwnSelectDtoClassPrinter } from './class-printers/own-select-dto-class-printer.js';
 import { OwnUpdateDtoClassPrinter } from './class-printers/own-update-dto-class-printer.js';
+import { OwnWhereDtoClassPrinter } from './class-printers/own-where-dto-class-printer.js';
 import { ReadDtoClassPrinter } from './class-printers/read-dto-class-printer.js';
+import { SelectDtoClassPrinter } from './class-printers/select-dto-class-printer.js';
 import { UpdateDtoClassPrinter } from './class-printers/update-dto-class-printer.js';
-import { swaggerLogger } from './swagger.logger.js';
+import { commonSwaggerCode } from './common-code/common-code.js';
+import { swaggerLogger as logger } from './swagger.logger.js';
 
 export function generateSwagger(datamodel: DMMF.Datamodel, project: string) {
+  logger.debug(`Generating the ${project}'s dtos`);
   const models = datamodel.models;
-  const enums = datamodel.enums;
+
   const printedCode: string[] = [];
 
-  // Own dtos
-
-  // Read dto: inclues all properties but hidden ones
-  // Create dto: inputs
-  // Update dto: optional inputs
-  // Select Dto: ALl fields selectc
-  // Omit Dto: All fields omit
-
-  // Where Dto: All field queries
-
-  // Include Dto: Relation Include
-  // Order Dto: Order by
-  // Projection Dto: select, omit, and inlucde
-  // Query Dto: COmbine Where,
-
-  printedCode.push(
-    new ImportPrinter({
-      source: '@nestjs/swagger',
-      items: ['ApiProperty'],
-    }).print()
-  );
-
-  printedCode.push(
-    new ImportPrinter({
-      source: '../prisma/client.js',
-      importAs: 'P',
-    }).print()
-  );
+  printedCode.push(commonSwaggerCode);
 
   for (const printer of [
     OwnReadDtoClassPrinter,
@@ -49,16 +28,18 @@ export function generateSwagger(datamodel: DMMF.Datamodel, project: string) {
     ReadDtoClassPrinter,
     CreateDtoClassPrinter,
     UpdateDtoClassPrinter,
+    OwnSelectDtoClassPrinter,
+    SelectDtoClassPrinter,
+    OwnWhereDtoClassPrinter,
+    IncludeDtoClassPrinter,
+    OwnProjectionDtoClassPrinter,
   ]) {
+    logger.debug(`Generating ${printer.name}`);
     const generated = models
       .map((model) => new printer(model).print())
       .join('\n\n');
     printedCode.push(generated);
   }
 
-  swaggerLogger.debug(`project : ${project}`);
-  swaggerLogger.debug(`models: ${models.map((e) => e.name).join(', ')} `);
-  swaggerLogger.debug(`enums: ${enums.map((e) => e.name).join(', ')} `);
-
-  return printedCode.join('\n\n');
+  return printedCode.join('\n');
 }

@@ -10,12 +10,16 @@ export class DtoClassPrinter extends ClassPrinter {
     super({ targetName: model.name });
   }
 
+  protected override printPropertyTypeSuffix(options: any): string {
+    return this.printNameSuffix();
+  }
+
   protected map(field: Field): Field {
     return field;
   }
 
   protected filter(field: Field): boolean {
-    return !!field;
+    return true;
   }
 
   protected override printProperties(): string {
@@ -26,7 +30,7 @@ export class DtoClassPrinter extends ClassPrinter {
         return new DtoPropertyPrinter(
           this.model,
           field,
-          this.printNameSuffix()
+          this.printPropertyTypeSuffix(field)
         ).print();
       })
       .join('\n');

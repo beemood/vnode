@@ -216,6 +216,9 @@ importers:
       '@vnode/prisma-generators':
         specifier: workspace:*
         version: link:../prisma-generators
+      '@vnode/types':
+        specifier: workspace:*
+        version: link:../../common/types
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3

@@ -1,13 +1,23 @@
-import { DMMF } from '@prisma/generator-helper';
 import { NotMatchedError } from '@vnode/errors';
-import { PrismaScalarType } from '../types/prisma.js';
+import { Field, PrismaScalarType } from '../types/prisma.js';
 
-export function getType(field: DMMF.Field, dtoNameSuffix: string): string {
+export enum FilterClasses {
+  StringFilter,
+  NumberFilter,
+  BooleanFilter,
+  DateFilter,
+  Array,
+}
+
+export function getFilterType(field: Field) {
   switch (field.kind) {
     case 'scalar': {
       switch (field.type as PrismaScalarType) {
         case 'String': {
-          return 'string';
+          if (field.isList) {
+            return 'ArrayStringFilter';
+          }
+          return 'StringFilter';
         }
         case 'Boolean': {
           return 'boolean';
@@ -16,23 +26,29 @@ export function getType(field: DMMF.Field, dtoNameSuffix: string): string {
         case 'Float':
         case 'Decimal':
         case 'Number': {
-          return 'number';
+          if (field.isList) {
+            return 'ArrayNumberFilter';
+          }
+          return 'NumberFilter';
         }
         case 'Json': {
-          return 'T.JsonValue';
+          return 'JsonFilter';
         }
         case 'Date':
         case 'DateTime': {
-          return 'Date';
+          if (field.isList) {
+            return 'ArrayDateFilter';
+          }
+          return 'DateFilter';
         }
       }
       break;
     }
     case 'object': {
-      return `${field.type}${dtoNameSuffix}`;
+      return `${field.type}OwnWhereDto`;
     }
     case 'enum': {
-      return `P.${field.type}`;
+      return `StringFilter`;
     }
     case 'unsupported': {
       throw new NotMatchedError(
