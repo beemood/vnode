@@ -7,15 +7,17 @@ export function createDocumentation(model: DMMF.Model, field: DMMF.Field) {
   const docs: string[] = [];
 
   if (isUnqiueField(model, field)) {
-    docs.push(`Field should be unique.`);
+    docs.push(`unqiue`);
   }
 
   if (isRequiredField(field)) {
-    docs.push('Field is required.');
+    docs.push('required');
+  } else {
+    docs.push('optional');
   }
 
   if (isGeneratedField(field)) {
-    docs.push(`Field is a generated readonly field`);
+    docs.push(`generated`);
   }
-  return docs.join('\n');
+  return docs.join(', ');
 }

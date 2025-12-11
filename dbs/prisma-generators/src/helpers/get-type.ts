@@ -1,13 +1,9 @@
 import { DMMF } from '@prisma/generator-helper';
 import { NotMatchedError } from '@vnode/errors';
-import { definedOrThrow } from '@vnode/utils';
-import { PrismaScalarType } from 'src/types/prisma-scalar-types.js';
+import { PrismaScalarType } from 'src/types/prisma.js';
 
-export function getType(field: DMMF.Field): string {
+export function getType(field: DMMF.Field, dtoSuffix: string): string {
   switch (field.kind) {
-    case 'object': {
-      return definedOrThrow(field.relationName);
-    }
     case 'scalar': {
       switch (field.type as PrismaScalarType) {
         case 'String': {
@@ -32,12 +28,15 @@ export function getType(field: DMMF.Field): string {
       }
       break;
     }
+    case 'object': {
+      return `${field.type}${dtoSuffix}`;
+    }
     case 'enum': {
-      return field.type;
+      return `P.${field.type}`;
     }
     case 'unsupported': {
       throw new NotMatchedError(
-        `${field.name}'s type, ${field.type} is unpupported!`
+        `${field.name}'s type, ${field.type}, is unpupported!`
       );
     }
   }

@@ -16,9 +16,9 @@ export class ImportPrinter implements Printable {
 
   protected printItems() {
     if (isNotEmptyArray(this.options.items)) {
-      return this.options.items.join(', ');
+      return `{${this.options.items.join(', ')}}`;
     } else if (isNotEmptyString(this.options.importAs)) {
-      return `* as ${this.options.importAs})`;
+      return `* as ${this.options.importAs}`;
     }
 
     return '';
@@ -26,7 +26,7 @@ export class ImportPrinter implements Printable {
 
   print(): string {
     if (isNotEmptyString(this.printItems())) {
-      return `import { ${this.printItems()} } from ${this.printSource()};`;
+      return `import  ${this.printItems()} from ${this.printSource()};`;
     }
     return `import ${this.printSource()};`;
   }

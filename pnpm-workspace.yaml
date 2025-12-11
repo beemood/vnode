@@ -8,7 +8,9 @@ packages:
 autoInstallPeers: true
 
 onlyBuiltDependencies:
+  - '@nestjs/core'
   - '@prisma/engines'
+  - '@scarf/scarf'
   - '@swc/core'
   - esbuild
   - nx

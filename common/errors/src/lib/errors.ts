@@ -29,3 +29,11 @@ export class NotImplementedError extends Error {
     this.name = NotImplementedError.name;
   }
 }
+
+export class NotSupporedError extends Error {
+  readonly code = NotSupporedError.name;
+  constructor(message = '') {
+    super(`${NotSupporedError.name}: ${message}`);
+    this.name = NotSupporedError.name;
+  }
+}
