@@ -12,7 +12,7 @@ export class SelectDtoClassPrinter extends OwnReadDtoClassPrinter {
   }
 
   protected override printPropertyTypeSuffix(): string {
-    return DtoNameSuffixes.OwnSelectDto;
+    return DtoNameSuffixes.OwnProjectionDto;
   }
 
   protected override printExtends(): string {

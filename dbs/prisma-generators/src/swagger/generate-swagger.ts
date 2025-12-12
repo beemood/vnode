@@ -10,6 +10,7 @@ import { OwnSelectDtoClassPrinter } from './class-printers/own-select-dto-class-
 import { OwnUpdateDtoClassPrinter } from './class-printers/own-update-dto-class-printer.js';
 import { OwnWhereDtoClassPrinter } from './class-printers/own-where-dto-class-printer.js';
 import { ProjectionDtoClassPrinter } from './class-printers/projection-dto-class-printer.js';
+import { QueryDtoClassPrinter } from './class-printers/query-dto-class-printer.js';
 import { ReadDtoClassPrinter } from './class-printers/read-dto-class-printer.js';
 import { SelectDtoClassPrinter } from './class-printers/select-dto-class-printer.js';
 import { UpdateDtoClassPrinter } from './class-printers/update-dto-class-printer.js';
@@ -33,14 +34,15 @@ export function generateSwagger(datamodel: DMMF.Datamodel, project: string) {
     CreateDtoClassPrinter,
     UpdateDtoClassPrinter,
     OwnSelectDtoClassPrinter,
-    SelectDtoClassPrinter,
     OwnWhereDtoClassPrinter,
     WhereDtoClassPrinter,
-    IncludeDtoClassPrinter,
     OwnProjectionDtoClassPrinter,
+    SelectDtoClassPrinter,
     ProjectionDtoClassPrinter,
+    IncludeDtoClassPrinter,
     OwnOrderDtoClassPrinter,
     OrderDtoClassPrinter,
+    QueryDtoClassPrinter,
   ]) {
     logger.debug(`Generating ${printer.name}`);
     const generated = models

@@ -13,7 +13,6 @@ export class OwnProjectionDtoClassPrinter extends ClassPrinter {
 
   protected override printProperties() {
     const ownSelectName = `${this.model.name}${DtoNameSuffixes.OwnSelectDto}`;
-    const includeNmae = `${this.model.name}${DtoNameSuffixes.IncludeDto}`;
     const ownWhereName = `${this.model.name}${DtoNameSuffixes.OwnWhereDto}`;
     return `
     { 
@@ -23,9 +22,7 @@ export class OwnProjectionDtoClassPrinter extends ClassPrinter {
       
       @ApiProperty({ type: ()=> ${ownSelectName}, required: false })
       omit?: ${ownSelectName};
-      
-      @ApiProperty({ type: ()=> ${includeNmae} , required: false })
-      include?: ${includeNmae};
+
 
       @ApiProperty({ type: ()=> ${ownWhereName} , required: false })
       where?: ${ownWhereName};

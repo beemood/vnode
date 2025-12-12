@@ -23,6 +23,16 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./swagger": {
+      "types": "./dist/swagger/swagger.d.ts",
+      "import": "./dist/swagger/swagger.js",
+      "default": "./dist/swagger/swagger.js"
+    },
+    "./zod": {
+      "types": "./dist/zod/zod.d.ts",
+      "import": "./dist/zod/zod.js",
+      "default": "./dist/zod/zod.js"
     }
   },
   "files": [

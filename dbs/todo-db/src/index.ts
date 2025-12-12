@@ -5,5 +5,6 @@ export * from './prisma/enums.js';
 export * from './prisma/models.js';
 export * from './prisma/models/Category.js';
 export * from './prisma/models/Todo.js';
-export * from './zod/zod.js';
+export * as Swagger from './swagger/swagger.js';
+export * as Zod from './zod/zod.js';
 
