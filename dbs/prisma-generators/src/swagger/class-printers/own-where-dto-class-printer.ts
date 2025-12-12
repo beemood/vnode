@@ -1,4 +1,3 @@
-import { NotSupporedError } from '@vnode/errors';
 import {
   isInternalField,
   isRelationField,
@@ -26,36 +25,43 @@ export class OwnWhereDtoClassPrinter extends DtoClassPrinter {
       return false;
     }
 
-    if (field.isList) {
-      return false;
-    }
-
     return true;
   }
 
   protected override map(field: Field): Field {
-    switch (field.kind) {
-      case 'object': {
-        return {
-          ...field,
-          type: `${field.type}${DtoNameSuffixes.OwnWhereDto}`,
-        };
-      }
-      case 'scalar': {
-        if (field.type === 'Boolean') {
-          return field;
-        }
-        return { ...field, kind: 'object', type: getFilterType(field) };
-      }
-      case 'enum': {
-        return field;
-      }
-      case 'unsupported': {
-        throw new NotSupporedError(field.kind);
-      }
-      default: {
-        throw new NotSupporedError(field.kind);
-      }
+    if (field.kind === 'enum') {
+      return field;
     }
+
+    if (field.type === 'Boolean') {
+      return field;
+    }
+    return {
+      ...field,
+      kind: 'object',
+      type: getFilterType(field),
+      isList: false,
+    };
+  }
+
+  protected printManyWhereDto() {
+    const dtoName = this.printName();
+    return [
+      `export class ${this.model.name}${DtoNameSuffixes.ManyWhereDto} {`,
+      ` 
+      @ApiProperty({ type: ()=> ${dtoName} , required: false })
+      some?: ${dtoName};`,
+      ` 
+      @ApiProperty({ type: ()=> ${dtoName} , required: false })
+      every?: ${dtoName};`,
+      ` 
+      @ApiProperty({ type: ()=> ${dtoName} , required: false })
+      none?: ${dtoName};`,
+      `}`,
+    ].join('\n');
+  }
+
+  override print(): string {
+    return [super.print(), this.printManyWhereDto()].join('\n');
   }
 }

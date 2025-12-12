@@ -97,4 +97,14 @@ export class JsonFilter extends _JsonFilter {
   @ApiProperty({ required: false,  type: ()=> _JsonFilter }) not?: _JsonFilter
 }
 
+
+export enum OrderDirection { 
+  ASC = 'asc', 
+  DESC = 'desc'
+}
+
+export class OrderByCount { 
+  _count: OrderDirection
+}
+
 `;

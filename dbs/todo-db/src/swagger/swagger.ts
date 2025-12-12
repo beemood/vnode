@@ -134,6 +134,15 @@ export class JsonFilter extends _JsonFilter {
   @ApiProperty({ required: false, type: () => _JsonFilter }) not?: _JsonFilter;
 }
 
+export enum OrderDirection {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
+export class OrderByCount {
+  _count: OrderDirection;
+}
+
 export class CategoryOwnReadDto {
   @ApiProperty({
     required: false,
@@ -485,6 +494,16 @@ export class CategoryOwnWhereDto {
   })
   parentId?: NumberFilter;
 }
+export class CategoryManyWhereDto {
+  @ApiProperty({ type: () => CategoryOwnWhereDto, required: false })
+  some?: CategoryOwnWhereDto;
+
+  @ApiProperty({ type: () => CategoryOwnWhereDto, required: false })
+  every?: CategoryOwnWhereDto;
+
+  @ApiProperty({ type: () => CategoryOwnWhereDto, required: false })
+  none?: CategoryOwnWhereDto;
+}
 
 export class TodoOwnWhereDto {
   @ApiProperty({
@@ -517,8 +536,14 @@ export class TodoOwnWhereDto {
   description?: StringFilter;
   @ApiProperty({ required: false, type: 'boolean', description: 'optional' })
   active?: boolean;
+  @ApiProperty({ type: () => ArrayStringFilter, description: 'required' })
+  notes: ArrayStringFilter;
+  @ApiProperty({ type: () => ArrayNumberFilter, description: 'required' })
+  scores: ArrayNumberFilter;
   @ApiProperty({ type: () => JsonFilter, description: 'required' })
   record: JsonFilter;
+  @ApiProperty({ type: () => ArrayStringFilter, description: 'required' })
+  records: ArrayStringFilter;
   @ApiProperty({ required: false, enum: P.Status, description: 'optional' })
   status?: P.Status;
   @ApiProperty({
@@ -528,6 +553,46 @@ export class TodoOwnWhereDto {
   })
   categoryId?: NumberFilter;
 }
+export class TodoManyWhereDto {
+  @ApiProperty({ type: () => TodoOwnWhereDto, required: false })
+  some?: TodoOwnWhereDto;
+
+  @ApiProperty({ type: () => TodoOwnWhereDto, required: false })
+  every?: TodoOwnWhereDto;
+
+  @ApiProperty({ type: () => TodoOwnWhereDto, required: false })
+  none?: TodoOwnWhereDto;
+}
+export class CategoryWhereDto extends CategoryOwnWhereDto {
+  @ApiProperty({
+    required: false,
+    type: () => CategoryOwnWhereDto,
+    description: 'optional',
+  })
+  parent?: CategoryOwnWhereDto;
+  @ApiProperty({
+    required: false,
+    type: () => CategoryManyWhereDto,
+    description: 'optional',
+  })
+  children?: CategoryManyWhereDto;
+  @ApiProperty({
+    required: false,
+    type: () => TodoManyWhereDto,
+    description: 'optional',
+  })
+  todos?: TodoManyWhereDto;
+}
+
+export class TodoWhereDto extends TodoOwnWhereDto {
+  @ApiProperty({
+    required: false,
+    type: () => CategoryOwnWhereDto,
+    description: 'optional',
+  })
+  category?: CategoryOwnWhereDto;
+}
+
 export class CategoryIncludeDto {
   @ApiProperty({
     required: false,
@@ -568,7 +633,7 @@ export class CategoryOwnProjectionDto {
   include?: CategoryIncludeDto;
 
   @ApiProperty({ type: () => CategoryOwnWhereDto, required: false })
-  where: CategoryOwnWhereDto;
+  where?: CategoryOwnWhereDto;
 }
 
 export class TodoOwnProjectionDto {
@@ -582,5 +647,190 @@ export class TodoOwnProjectionDto {
   include?: TodoIncludeDto;
 
   @ApiProperty({ type: () => TodoOwnWhereDto, required: false })
-  where: TodoOwnWhereDto;
+  where?: TodoOwnWhereDto;
+}
+
+export class CategoryProjectionDto {
+  @ApiProperty({ type: () => CategorySelectDto, required: false })
+  select?: CategorySelectDto;
+
+  @ApiProperty({ type: () => CategorySelectDto, required: false })
+  omit?: CategorySelectDto;
+
+  @ApiProperty({ type: () => CategoryIncludeDto, required: false })
+  include?: CategoryIncludeDto;
+
+  @ApiProperty({ type: () => CategoryWhereDto, required: false })
+  where?: CategoryWhereDto;
+}
+
+export class TodoProjectionDto {
+  @ApiProperty({ type: () => TodoSelectDto, required: false })
+  select?: TodoSelectDto;
+
+  @ApiProperty({ type: () => TodoSelectDto, required: false })
+  omit?: TodoSelectDto;
+
+  @ApiProperty({ type: () => TodoIncludeDto, required: false })
+  include?: TodoIncludeDto;
+
+  @ApiProperty({ type: () => TodoWhereDto, required: false })
+  where?: TodoWhereDto;
+}
+
+export class CategoryOwnOrderDto {
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, generated',
+  })
+  id?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, generated',
+  })
+  uuid?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, timestamp',
+  })
+  createdAt?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, timestamp',
+  })
+  updatedAt?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, timestamp',
+  })
+  deletedAt?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'unqiue, optional',
+  })
+  name?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  parentId?: OrderDirection;
+}
+
+export class TodoOwnOrderDto {
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, generated',
+  })
+  id?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, timestamp',
+  })
+  createdAt?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, timestamp',
+  })
+  updatedAt?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional, timestamp',
+  })
+  deletedAt?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'unqiue, optional',
+  })
+  title?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  description?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  active?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  notes?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  scores?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  record?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  records?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  status?: OrderDirection;
+  @ApiProperty({
+    required: false,
+    type: () => OrderDirection,
+    description: 'optional',
+  })
+  categoryId?: OrderDirection;
+}
+export class CategoryOrderDto extends CategoryOwnOrderDto {
+  @ApiProperty({
+    required: false,
+    type: () => CategoryOwnOrderDto,
+    description: 'optional',
+  })
+  parent?: CategoryOwnOrderDto;
+  @ApiProperty({
+    isArray: true,
+    required: false,
+    type: () => CategoryOwnOrderDto,
+    description: 'optional',
+  })
+  children?: CategoryOwnOrderDto[];
+  @ApiProperty({
+    isArray: true,
+    required: false,
+    type: () => TodoOwnOrderDto,
+    description: 'optional',
+  })
+  todos?: TodoOwnOrderDto[];
+}
+
+export class TodoOrderDto extends TodoOwnOrderDto {
+  @ApiProperty({
+    required: false,
+    type: () => CategoryOwnOrderDto,
+    description: 'optional',
+  })
+  category?: CategoryOwnOrderDto;
 }

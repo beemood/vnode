@@ -12,12 +12,22 @@ export class ProjectionDtoClassPrinter extends ClassPrinter {
   }
 
   protected override printProperties() {
+    const selectDtoName = `${this.model.name}${DtoNameSuffixes.SelectDto}`;
+    const includeDtoName = `${this.model.name}${DtoNameSuffixes.IncludeDto}`;
+    const whereDtoName = `${this.model.name}${DtoNameSuffixes.WhereDto}`;
     return `
     { 
-      select: ${this.model.name}${DtoNameSuffixes.SelectDto};
-      omit: ${this.model.name}${DtoNameSuffixes.SelectDto};
-      include: ${this.model.name}${DtoNameSuffixes.IncludeDto};
-      where: ${this.model.name}${DtoNameSuffixes.WhereDto};
+    @ApiProperty({ type: ()=> ${selectDtoName}, required: false }) 
+    select?: ${selectDtoName};
+
+    @ApiProperty({ type: ()=> ${selectDtoName}, required: false })
+    omit?: ${selectDtoName};
+
+    @ApiProperty({ type: ()=> ${includeDtoName} , required: false })
+    include?: ${includeDtoName};
+    
+    @ApiProperty({ type: ()=> ${whereDtoName} , required: false })
+    where?: ${whereDtoName};
     }
     `;
   }

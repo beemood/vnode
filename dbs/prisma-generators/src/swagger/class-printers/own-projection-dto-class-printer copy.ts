@@ -28,7 +28,7 @@ export class OwnProjectionDtoClassPrinter extends ClassPrinter {
       include?: ${includeNmae};
 
       @ApiProperty({ type: ()=> ${ownWhereName} , required: false })
-      where: ${ownWhereName};
+      where?: ${ownWhereName};
     }
     `;
   }

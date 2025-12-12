@@ -45,7 +45,7 @@ export function isUnqiueField(model: DMMF.Model, field: DMMF.Field) {
 }
 
 export function isRelationField(field: DMMF.Field) {
-  return field.kind === 'object' && isDefined(field.relationName);
+  return isDefined(field.relationName);
 }
 
 export function isTimestampField(field: DMMF.Field) {

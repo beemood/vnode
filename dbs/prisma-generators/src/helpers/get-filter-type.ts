@@ -1,4 +1,5 @@
 import { NotMatchedError } from '@vnode/errors';
+import { DtoNameSuffixes } from '../types/name-variants.js';
 import { Field, PrismaScalarType } from '../types/prisma.js';
 
 export enum FilterClasses {
@@ -20,6 +21,9 @@ export function getFilterType(field: Field) {
           return 'StringFilter';
         }
         case 'Boolean': {
+          if (field.isList) {
+            return 'boolean[]';
+          }
           return 'boolean';
         }
         case 'Int':
@@ -32,6 +36,9 @@ export function getFilterType(field: Field) {
           return 'NumberFilter';
         }
         case 'Json': {
+          if (field.isList) {
+            return 'ArrayStringFilter';
+          }
           return 'JsonFilter';
         }
         case 'Date':
@@ -45,9 +52,15 @@ export function getFilterType(field: Field) {
       break;
     }
     case 'object': {
+      if (field.isList) {
+        return `${field.type}${DtoNameSuffixes.ManyWhereDto}`;
+      }
       return `${field.type}OwnWhereDto`;
     }
     case 'enum': {
+      if (field.isList) {
+        return 'ArrayStringFilter';
+      }
       return `StringFilter`;
     }
     case 'unsupported': {
