@@ -16,8 +16,11 @@
   ],
   "references": [
     {
-      "path": "../errors/tsconfig.json"
-    }
+      "path": "../errors/tsconfig.lib.json"
+    },
+    {
+      "path": "../barcode/tsconfig.lib.json"
+    },
   ],
   "exclude": [
     "vite.config.ts",

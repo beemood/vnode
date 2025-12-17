@@ -1,9 +1,9 @@
 // @index(['./**/*.ts', '!./**/*.{spec,test,index}.ts', '!./**/{_,main,boot,bootstrap}.ts'], f => `export * from '${f.path}.js'`)
 export * from './init.js';
-export * from './lib/common/directin-schema.js';
-export * from './lib/common/integer-schema.js';
-export * from './lib/common/name-schemea.js';
-export * from './lib/common/pagination-schema.js';
-export * from './lib/common/slug-schema.js';
-export * from './lib/factory/create-projection-schema.js';
+export * from './lib/object-schemas/filter-schema.js';
+export * from './lib/object-schemas/order-by-schema.js';
+export * from './lib/object-schemas/projection-schema.js';
+export * from './lib/schemas/number-schemas.js';
+export * from './lib/schemas/object-schemas.js';
+export * from './lib/schemas/string-schemas.js';
 

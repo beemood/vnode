@@ -20,6 +20,9 @@
   ],
   "nx": {
     "sourceRoot": "libs/names/src",
+    "tags": [
+      "lib"
+    ],
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -38,6 +41,7 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
-    "@vnode/errors": "workspace:*"
+    "@vnode/errors": "workspace:*",
+    "vitest": "^4.0.0"
   }
 }

@@ -3,6 +3,6 @@ import './init.js';
 
 describe('init', () => {
   it('should initialize the VnodeError', () => {
-    expect(new InvalidNameError().packageName).toEqual('@vnode/names');
+    expect(new InvalidNameError().packageName).toEqual('@vnode/utils');
   });
 });

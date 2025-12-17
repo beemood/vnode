@@ -1,14 +1,14 @@
 import { isPascalCase } from './is-pascal-case.js';
 import { isScreamingSnakeCase } from './is-snake-case.js';
-import { validateName } from './validate-name.js';
+import { validNameOrThrow } from './valid-name-or-throw.js';
 
 /**
- * Normalize the given {@link name} transforming it into `kebab-case`
+ * Normalize the given {@link name} transforming it into `kebab-case`. Also check the validation function {@link validNameOrThrow} for more information.
  * @param name name in any format such as camel, kebab, title, pascal...
  * @return `kebab-case` name
  */
 export function normalizeName(name: string): string {
-  name = validateName(name);
+  name = validNameOrThrow(name);
 
   if (isScreamingSnakeCase(name)) {
     name = name.toLowerCase();

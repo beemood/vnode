@@ -14,6 +14,12 @@
     },
     {
       "path": "./libs/zod"
+    },
+    {
+      "path": "./libs/barcode"
+    },
+    {
+      "path": "./libs/types"
     }
   ]
 }

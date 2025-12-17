@@ -20,6 +20,9 @@
   ],
   "nx": {
     "sourceRoot": "libs/zod/src",
+    "tags": [
+      "lib"
+    ],
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -38,7 +41,10 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
+    "@vnode/barcode": "workspace:*",
     "@vnode/errors": "workspace:*",
+    "@vnode/types": "workspace:*",
+    "vitest": "^4.0.0",
     "zod": "^4.2.1"
   }
 }

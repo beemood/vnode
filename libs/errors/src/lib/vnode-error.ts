@@ -1,3 +1,5 @@
+import { ErrorClassName, ErrorMessage, PackageName } from '@vnode/types';
+
 export abstract class VnodeError extends Error {
   protected static packageName?: string;
   public readonly packageName = VnodeError.packageName;
@@ -5,8 +7,8 @@ export abstract class VnodeError extends Error {
   public readonly errorCode: string;
 
   constructor(
-    message: string,
-    errorCode = 'VnodeError',
+    message: ErrorMessage,
+    errorCode: ErrorClassName = 'VnodeError',
     httpStatusCode = 5000
   ) {
     super(message);
@@ -29,7 +31,7 @@ export abstract class VnodeError extends Error {
    * Set the packageName so you know which library is throwing the error.
    * @param packageName
    */
-  static setPackageName(packageName: string) {
+  static setPackageName(packageName: PackageName) {
     if (this.packageName == undefined) {
       this.packageName = packageName;
     } else {

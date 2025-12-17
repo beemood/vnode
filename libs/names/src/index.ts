@@ -8,5 +8,5 @@ export * from './lib/names.js';
 export * from './lib/normalize-name.js';
 export * from './lib/to-camel-case.js';
 export * from './lib/uppercase-first.js';
-export * from './lib/validate-name.js';
+export * from './lib/valid-name-or-throw.js';
 

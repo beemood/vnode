@@ -9,20 +9,25 @@ function printErrorClass(name) {
 
   return [
     `export class ${className} extends VnodeError {`,
-    `   constructor(message = '') {`,
-    `       super('${className}: ' + message, '${className}');`,
+    `   constructor(message: Message = '') {`,
+    `       super(\`${className}: \${message}\`, '${className}');`,
     `   }`,
     `}`,
   ].join('\n');
 }
 
-const requiredImports = `import { VnodeError } from './vnode-error.js';`;
+const requiredImports = `
+import { VnodeError } from './vnode-error.js';
+import { Message } from '@vnode/types';
+`;
 
 const listOfErrors = new Set([
   'Type',
   'InvalidFormat',
   'PatternMismatch',
   'NotNumber',
+  'NotEvenNumber',
+  'NotOddNumber',
   'NotInteger',
   'NonNumeric',
   'NotString',
@@ -37,6 +42,9 @@ const listOfErrors = new Set([
   'Required',
   'NullValue',
   'EmptyString',
+  'InvalidPrefix',
+
+  'InvalidBarcode',
   'EmptyArray',
   'EmptyCollection',
   'NoSelection',
@@ -96,7 +104,7 @@ const generatedErrors = [...listOfErrors].map(printErrorClass).join('\n');
 writeFile('src/lib/errors.ts', [requiredImports, generatedErrors].join('\n'), {
   encoding: 'utf-8',
 })
-  .then((res) => {
+  .then(() => {
     console.log('Successfully generated the error classews');
   })
   .catch((err) => {

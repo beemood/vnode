@@ -1,4 +1,5 @@
 import { UndefinedError } from '@vnode/errors';
+import { Some } from '@vnode/types';
 import { isDate } from './is-date.js';
 import { isNumber } from './is-number.js';
 import { isString } from './is-string.js';
@@ -10,7 +11,7 @@ import { isString } from './is-string.js';
  * @param value any value
  * @returns - {@link T}
  */
-export function definedOrThrow<T>(value: T | undefined | null): T {
+export function definedOrThrow<T>(value: Some<T>): T {
   if (isNumber(value)) {
     if (!isNaN(value)) {
       return value;
@@ -24,5 +25,5 @@ export function definedOrThrow<T>(value: T | undefined | null): T {
   } else if (value != undefined) {
     return value;
   }
-  throw new UndefinedError(`The value must be defined but found ${value}`);
+  throw new UndefinedError(`The value must be defined but found ${value}.`);
 }
