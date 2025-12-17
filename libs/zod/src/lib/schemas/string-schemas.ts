@@ -3,6 +3,7 @@ import { InvalidBarcodeError } from '@vnode/errors';
 import z from 'zod';
 
 export const StringSchemas = {
+  string: () => z.string(),
   name: () => z.string().max(255),
   short: () => z.string().max(255),
   long: () => z.string().max(2000),
@@ -19,5 +20,6 @@ export const StringSchemas = {
         `The value, ${value}, is not a valid barcode.`
       );
     }),
-  dir: () => z.enum(['asc', 'desc', 'ASC', 'DESC']),
+  orderDirection: () => z.enum(['asc', 'desc', 'ASC', 'DESC']),
+  enums: (names: string[]) => z.enum(names),
 };

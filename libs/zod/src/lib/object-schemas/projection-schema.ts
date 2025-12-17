@@ -8,5 +8,5 @@ export function projectionSchema<T extends Partial<Record<string, string>>>(
   for (const [key] of Object.keys(record)) {
     shape[key as keyof T] = z.boolean().optional();
   }
-  return shape;
+  return z.object(shape);
 }

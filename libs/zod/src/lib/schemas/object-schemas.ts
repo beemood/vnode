@@ -1,6 +1,6 @@
 import type { StringRecord } from '@vnode/types';
 import z from 'zod';
-import { orderBySchema } from '../object-schemas/order-by-schema.js';
+import { orderSchema } from '../object-schemas/order-schema.js';
 import { NumberSchemas } from './number-schemas.js';
 
 export const ObjectSchemas = {
@@ -10,5 +10,6 @@ export const ObjectSchemas = {
       skip: NumberSchemas.nonnegative().min(0).optional(),
     }),
 
-  order: (record: StringRecord) => orderBySchema(record),
+  order: (record: StringRecord) => orderSchema(record),
+
 };

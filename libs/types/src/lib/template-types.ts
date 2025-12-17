@@ -18,6 +18,10 @@ export type Message = `${Uppercase<string>}${string}.` | '';
 export type ErrorMessage =
   | `${Uppercase<string>}${string}Error: ${Message}`
   | '';
+
+export function errorMessage(message: ErrorMessage) {
+  return message;
+}
 export type ErrorClassName = `${Uppercase<string>}${string}Error`;
 export type AtSymol = '@';
 export type CopyRight = '©';

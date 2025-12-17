@@ -1,7 +1,7 @@
-import { ZodEnum, ZodOptional } from 'zod';
+import z, { ZodEnum, ZodOptional } from 'zod';
 import { StringSchemas } from '../schemas/string-schemas.js';
 
-export function orderBySchema<T extends Partial<Record<string, string>>>(
+export function orderSchema<T extends Partial<Record<string, string>>>(
   record: T
 ) {
   const shape: Partial<
@@ -14,7 +14,7 @@ export function orderBySchema<T extends Partial<Record<string, string>>>(
   > = {};
 
   for (const [key] of Object.keys(record)) {
-    shape[key as keyof T] = StringSchemas.dir().optional();
+    shape[key as keyof T] = StringSchemas.orderDirection().optional();
   }
-  return shape;
+  return z.object(shape);
 }
