@@ -1,32 +1,64 @@
 import { normalizeName } from './normalize-name.js';
 import { toCamelCase } from './to-camel-case.js';
-import { upperCaseFirst } from './uppercase-first.js';
+import { upperCaseFirstLetter } from './uppercase-first.js';
 
 export type Names = {
-  pascal: string; // PascalCase
-  camel: string; // camelCase
-  snake: string; // snake_case
-  kebab: string; // kebab-case
-  screamingSnake: string; // SNAKE_CASE
-  title: string; // Title Case
-  sentence: string; // Sentence case
-  dotCase: string; // dot.case
+  /**
+   * PascalCase
+   */
+  pascal: string;
+
+  /**
+   * camelCase
+   */
+  camel: string;
+
+  /**
+   * snake_case
+   */
+  snake: string;
+
+  /**
+   * kebab-case
+   */
+  kebab: string;
+
+  /**
+   * SCREAMING_SNAKE_CASE
+   */
+  screamingSnake: string;
+
+  /**
+   * Title Case
+   */
+  title: string;
+
+  /**
+   * Sentence case
+   */
+  sentence: string;
+
+  /**
+   * dot.case
+   */
+  dot: string;
 };
 
 /**
- * Create all name variants of the given {@link name}
- * @param name non-empty string
+ * Create name variants of the given {@link name}
+ *
+ * @param name string
  * @returns - {@link Names}
  */
 export function names(name: string): Names {
   const kebab = normalizeName(name);
   const camel = toCamelCase(kebab);
-  const pascal = upperCaseFirst(camel);
+  const pascal = upperCaseFirstLetter(camel);
   const screamingSnake = kebab.replace(/-/g, '_').toUpperCase();
-  const sentence = upperCaseFirst(kebab.replace(/-/g, ' '));
-  const title = kebab.split('-').map(upperCaseFirst).join(' ');
+  const sentence = upperCaseFirstLetter(kebab.replace(/-/g, ' '));
+  const title = kebab.split('-').map(upperCaseFirstLetter).join(' ');
   const snake = kebab.replace(/-/g, '_');
-  const dotCase = kebab.replace(/-/g, '.');
+  const dot = kebab.replace(/-/g, '.');
 
   return {
     camel,
@@ -36,6 +68,6 @@ export function names(name: string): Names {
     sentence,
     snake,
     title,
-    dotCase,
+    dot,
   };
 }

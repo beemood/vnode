@@ -1,11 +1,3 @@
 # names
 
-This library was generated with [Nx](https://nx.dev).
-
-## Building
-
-Run `nx build names` to build the library.
-
-## Running unit tests
-
-Run `nx test names` to execute the unit tests via [Vitest](https://vitest.dev/).
+The library provides `names` utility function to create all name variants of a given string as camel, pascal, snake, title, sentence, screamingSnake, and dot.

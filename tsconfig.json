@@ -11,6 +11,9 @@
     },
     {
       "path": "./libs/errors"
+    },
+    {
+      "path": "./libs/zod"
     }
   ]
 }

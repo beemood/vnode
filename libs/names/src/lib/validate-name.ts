@@ -1,6 +1,12 @@
 import { InvalidNameError } from '@vnode/errors';
 
-export function validateName(name: string): boolean {
+/**
+ * Validate the given name that contains at least a letter, and contains only letters, dash, underscore, and space. Also, no dobule dash, underscore, and space allowed.
+ *
+ * @param name string
+ * @returns boolean
+ */
+export function validateName(name: string): string {
   if (!/[a-zA-Z]{1,}/.test(name)) {
     throw new InvalidNameError(
       `Name must contain at least one letter but found ${name}.`
@@ -19,5 +25,5 @@ export function validateName(name: string): boolean {
     );
   }
 
-  return true;
+  return name;
 }

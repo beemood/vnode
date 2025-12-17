@@ -5,7 +5,7 @@ describe('names', () => {
     const __names = names('Some Name');
 
     expect(__names.camel).toEqual('someName');
-    expect(__names.dotCase).toEqual('some.name');
+    expect(__names.dot).toEqual('some.name');
     expect(__names.kebab).toEqual('some-name');
     expect(__names.screamingSnake).toEqual('SOME_NAME');
     expect(__names.sentence).toEqual('Some name');
