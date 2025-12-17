@@ -8,14 +8,14 @@ export const DateSchemas = {
   futureDate: () =>
     z.iso.date().refine(
       (value) => {
-        return new Date(value) < new Date();
+        return new Date(value) > new Date();
       },
       { error: errorMessage(`FutureDateError: The date must be future date.`) }
     ),
   pastDate: () =>
     z.iso.date().refine(
       (value) => {
-        return new Date(value) > new Date();
+        return new Date(value) < new Date();
       },
       { error: errorMessage(`PastDateError: The date must be past date.`) }
     ),
