@@ -1,16 +1,18 @@
 import { NotEvenNumberError, NotOddNumberError } from '@vnode/errors';
 import z from 'zod';
 
+export const number = () => z.coerce.number();
+
 export const NumberSchemas = {
-  number: () => z.coerce.number(),
-  integer: () => z.coerce.number().int(),
-  fraction: () => z.coerce.number().min(0).max(1),
-  positive: () => z.coerce.number().positive(),
-  nonnegative: () => z.coerce.number().nonnegative(),
-  rate: () => z.coerce.number().int().max(5).min(0),
-  percent: () => z.coerce.number().int().max(100).min(0),
+  number: () => number(),
+  integer: () => number().int(),
+  fraction: () => number().min(0).max(1),
+  positive: () => number().positive(),
+  nonnegative: () => number().nonnegative(),
+  rate: () => number().int().max(5).min(0),
+  percent: () => number().int().max(100).min(0),
   even: () =>
-    z.coerce.number().refine((value) => {
+    number().refine((value) => {
       if (value % 2 === 2) {
         return value;
       }
