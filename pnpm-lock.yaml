@@ -120,6 +120,9 @@ importers:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
+      '@vnode/errors':
+        specifier: workspace:*
+        version: link:../errors
 
 packages:
 

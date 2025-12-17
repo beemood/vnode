@@ -18,14 +18,16 @@ function printErrorClass(name) {
 
 const requiredImports = `import { VnodeError } from './vnode-error.js';`;
 
-const listOfErrors = [
+const listOfErrors = new Set([
   'Type',
-  'TypeError',
   'InvalidFormat',
   'PatternMismatch',
-  'NotANumber',
-  'NotAnInteger',
+  'NotNumber',
+  'NotInteger',
   'NonNumeric',
+  'NotString',
+  'NotArray',
+
   'InvalidCharacter',
   'Encoding',
   'MalformedJSON',
@@ -81,15 +83,15 @@ const listOfErrors = [
   'Configuration',
   'Dependency',
   'SyntaxError',
-  'ReferenceError',
-  'ArithmeticError',
+  'Reference',
+  'Arithmetic',
   'IndexError',
   'KeyError',
   'NotCallable',
-  'AssertionError',
-];
+  'Assertion',
+]);
 
-const generatedErrors = listOfErrors.map(printErrorClass).join('\n');
+const generatedErrors = [...listOfErrors].map(printErrorClass).join('\n');
 
 writeFile('src/lib/errors.ts', [requiredImports, generatedErrors].join('\n'), {
   encoding: 'utf-8',

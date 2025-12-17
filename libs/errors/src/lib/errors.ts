@@ -4,11 +4,6 @@ export class TypeError extends VnodeError {
        super('TypeError: ' + message, 'TypeError');
    }
 }
-export class TypeErrorError extends VnodeError {
-   constructor(message = '') {
-       super('TypeErrorError: ' + message, 'TypeErrorError');
-   }
-}
 export class InvalidFormatError extends VnodeError {
    constructor(message = '') {
        super('InvalidFormatError: ' + message, 'InvalidFormatError');
@@ -19,19 +14,29 @@ export class PatternMismatchError extends VnodeError {
        super('PatternMismatchError: ' + message, 'PatternMismatchError');
    }
 }
-export class NotANumberError extends VnodeError {
+export class NotNumberError extends VnodeError {
    constructor(message = '') {
-       super('NotANumberError: ' + message, 'NotANumberError');
+       super('NotNumberError: ' + message, 'NotNumberError');
    }
 }
-export class NotAnIntegerError extends VnodeError {
+export class NotIntegerError extends VnodeError {
    constructor(message = '') {
-       super('NotAnIntegerError: ' + message, 'NotAnIntegerError');
+       super('NotIntegerError: ' + message, 'NotIntegerError');
    }
 }
 export class NonNumericError extends VnodeError {
    constructor(message = '') {
        super('NonNumericError: ' + message, 'NonNumericError');
+   }
+}
+export class NotStringError extends VnodeError {
+   constructor(message = '') {
+       super('NotStringError: ' + message, 'NotStringError');
+   }
+}
+export class NotArrayError extends VnodeError {
+   constructor(message = '') {
+       super('NotArrayError: ' + message, 'NotArrayError');
    }
 }
 export class InvalidCharacterError extends VnodeError {
@@ -309,14 +314,14 @@ export class SyntaxErrorError extends VnodeError {
        super('SyntaxErrorError: ' + message, 'SyntaxErrorError');
    }
 }
-export class ReferenceErrorError extends VnodeError {
+export class ReferenceError extends VnodeError {
    constructor(message = '') {
-       super('ReferenceErrorError: ' + message, 'ReferenceErrorError');
+       super('ReferenceError: ' + message, 'ReferenceError');
    }
 }
-export class ArithmeticErrorError extends VnodeError {
+export class ArithmeticError extends VnodeError {
    constructor(message = '') {
-       super('ArithmeticErrorError: ' + message, 'ArithmeticErrorError');
+       super('ArithmeticError: ' + message, 'ArithmeticError');
    }
 }
 export class IndexErrorError extends VnodeError {
@@ -334,8 +339,8 @@ export class NotCallableError extends VnodeError {
        super('NotCallableError: ' + message, 'NotCallableError');
    }
 }
-export class AssertionErrorError extends VnodeError {
+export class AssertionError extends VnodeError {
    constructor(message = '') {
-       super('AssertionErrorError: ' + message, 'AssertionErrorError');
+       super('AssertionError: ' + message, 'AssertionError');
    }
 }
