@@ -1,0 +1,103 @@
+/**
+ * Generate error classes
+ */
+
+import { writeFile } from 'fs/promises';
+
+function printErrorClass(name) {
+  const className = `${name}Error`;
+
+  return [
+    `export class ${className} extends VnodeError {`,
+    `   constructor(message = '') {`,
+    `       super('${className}: ' + message, '${className}');`,
+    `   }`,
+    `}`,
+  ].join('\n');
+}
+
+const requiredImports = `import { VnodeError } from './vnode-error.js';`;
+
+const listOfErrors = [
+  'Type',
+  'TypeError',
+  'InvalidFormat',
+  'PatternMismatch',
+  'NotANumber',
+  'NotAnInteger',
+  'NonNumeric',
+  'InvalidCharacter',
+  'Encoding',
+  'MalformedJSON',
+  'InvalidDate',
+  'Undefined',
+  'Missing',
+  'Required',
+  'NullValue',
+  'EmptyString',
+  'EmptyArray',
+  'EmptyCollection',
+  'NoSelection',
+  'TooFew',
+  'TooMany',
+  'MinLength',
+  'MaxLength',
+  'Length',
+  'Minimum',
+  'Maximum',
+  'Range',
+  'Negative',
+  'Positive',
+  'Precision',
+  'TooSmall',
+  'TooLarge',
+  'Unique',
+  'DuplicateEntry',
+  'ForbiddenName',
+  'InvalidName',
+  'ForbiddenValue',
+  'Mismatch',
+  'NotAllowed',
+  'CircularReference',
+  'ConstraintViolation',
+  'ReadOnly',
+  'Unauthorized',
+  'Forbidden',
+  'InvalidCredentials',
+  'AccountLocked',
+  'SessionExpired',
+  'AccountDisabled',
+  'InvalidState',
+  'InUse',
+  'NotImplemented',
+  'System',
+  'Timeout',
+  'NotFound',
+  'ResourceExhausted',
+  'IOError',
+  'Network',
+  'PermissionDenied',
+  'DiskFull',
+  'Configuration',
+  'Dependency',
+  'SyntaxError',
+  'ReferenceError',
+  'ArithmeticError',
+  'IndexError',
+  'KeyError',
+  'NotCallable',
+  'AssertionError',
+];
+
+const generatedErrors = listOfErrors.map(printErrorClass).join('\n');
+
+writeFile('src/lib/errors.ts', [requiredImports, generatedErrors].join('\n'), {
+  encoding: 'utf-8',
+})
+  .then((res) => {
+    console.log('Successfully generated the error classews');
+  })
+  .catch((err) => {
+    console.error('Something went wrong generating the error classes!');
+    throw err;
+  });

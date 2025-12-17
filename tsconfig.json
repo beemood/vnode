@@ -4,10 +4,13 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/sample-node-app-e2e"
+      "path": "./libs/names"
     },
     {
-      "path": "./apps/sample-node-app"
+      "path": "./libs/utils"
+    },
+    {
+      "path": "./libs/errors"
     }
   ]
 }

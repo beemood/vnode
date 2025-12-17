@@ -1,0 +1,21 @@
+{
+  "error class": {
+    "prefix": "error class",
+    "body": [
+      "export class $1Error extends BaseError {",
+      "  constructor(message: string) {",
+      "    super(`$1Error: `+ message, '$1Error');",
+      "  }",
+      "}"
+    ],
+    "description": "Error class",
+    "scope": "typescript"
+  },
+
+  "exports all": {
+    "prefix": "exports all",
+    "body": "// @index(['./**/*.ts', '!./**/*.{spec,test,index}.ts', '!./**/{_,main,boot,bootstrap}.ts'], f => `export * from '${f.path}.js'`)",
+    "scope": "typescript",
+    "description": "index files exports"
+  }
+}
