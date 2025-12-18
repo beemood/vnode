@@ -23,6 +23,15 @@
     },
     {
       "path": "./libs/crypto"
+    },
+    {
+      "path": "./dbs/inventory-db"
+    },
+    {
+      "path": "./plugins/plugin"
+    },
+    {
+      "path": "./plugins/prisma-zod-generator"
     }
   ]
 }

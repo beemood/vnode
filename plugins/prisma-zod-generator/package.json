@@ -1,0 +1,50 @@
+{
+  "name": "@vnode/prisma-zod-generator",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "prisma-zod-generator": "./bin/generate.mjs"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@vnode/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "bin",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "sourceRoot": "plugins/prisma-zod-generator/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "plugins/prisma-zod-generator/dist",
+          "main": "plugins/prisma-zod-generator/src/index.ts",
+          "tsConfig": "plugins/prisma-zod-generator/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@prisma/client": "^7.2.0",
+    "@swc/helpers": "~0.5.11",
+    "@vnode/errors": "workspace:*",
+    "@vnode/utils": "workspace:*",
+    "vitest": "^4.0.0"
+  }
+}

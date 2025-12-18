@@ -1,0 +1,15 @@
+export type PrismaScalarType =
+  | 'String'
+  | 'Number'
+  | 'Float'
+  | 'Decimal'
+  | 'Int'
+  | 'Integer'
+  | 'Boolean'
+  | 'Bool'
+  | 'Json'
+  | 'JSON'
+  | 'Date'
+  | 'DateTime'
+  | 'Datetime'
+  | 'Timestamp';

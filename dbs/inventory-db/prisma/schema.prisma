@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/lib/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  uuid String @unique @default(uuid(7))
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name        String  @unique @db.VarChar(255)
+  description String?
+
+  parent   Category? @relation("children", fields: [parentId], references: [id])
+  parentId Int?
+
+  children Category[] @relation("children")
+}

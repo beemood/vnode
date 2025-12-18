@@ -1,11 +1,9 @@
-import type { TypeRecordWithChildren } from '@vnode/types';
+import type { AnyRecord, TypeRecordWithChildren } from '@vnode/types';
 import { entries, isPropertyType } from '@vnode/utils';
 import type { ZodType } from 'zod';
 import z from 'zod';
 
-export function projectionSchemaShape<T extends TypeRecordWithChildren>(
-  record: T
-) {
+export function projectionSchemaShape<T extends AnyRecord>(record: T) {
   const shape: Partial<Record<keyof T, ZodType>> = {};
 
   for (const [key, type] of entries(record)) {
@@ -19,6 +17,8 @@ export function projectionSchemaShape<T extends TypeRecordWithChildren>(
   return shape;
 }
 
-export function projectionSchema<T extends TypeRecordWithChildren>(record: T) {
+export function projectionSchema<T extends TypeRecordWithChildren>(
+  record: T
+): ZodType {
   return z.object(projectionSchemaShape(record));
 }

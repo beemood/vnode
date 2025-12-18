@@ -1,8 +1,9 @@
 packages:
-  - apps/*
-  - libs/*
-
+  - 'apps/*'
+  - 'libs/*'
+  - 'dbs/*'
+  - 'plugins/*'
+  
 autoInstallPeers: true
-
 onlyBuiltDependencies:
-  - esbuild
+  - 'esbuild'

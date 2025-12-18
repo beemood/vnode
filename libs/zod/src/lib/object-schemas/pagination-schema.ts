@@ -1,5 +1,5 @@
 import z from 'zod';
-import { NumberSchemas } from '../schemas/number-schemas.js';
+import { NumberSchemas } from '../common-schemas/number-schemas.js';
 
 export const paginationSchemaShape = () => ({
   take: NumberSchemas.nonnegative().min(1).default(20).optional(),
