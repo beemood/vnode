@@ -1,12 +1,24 @@
-import z, { ZodBoolean, ZodOptional } from 'zod';
+import type { TypeRecordWithChildren } from '@vnode/types';
+import { entries, isPropertyType } from '@vnode/utils';
+import type { ZodType } from 'zod';
+import z from 'zod';
 
-export function projectionSchema<T extends Partial<Record<string, string>>>(
+export function projectionSchemaShape<T extends TypeRecordWithChildren>(
   record: T
 ) {
-  const shape: Partial<Record<keyof T, ZodOptional<ZodBoolean>>> = {};
+  const shape: Partial<Record<keyof T, ZodType>> = {};
 
-  for (const [key] of Object.keys(record)) {
-    shape[key as keyof T] = z.boolean().optional();
+  for (const [key, type] of entries(record)) {
+    if (isPropertyType(type)) {
+      shape[key as keyof T] = z.coerce.boolean().optional();
+    } else {
+      shape[key as keyof T] = z.object(projectionSchemaShape(type));
+    }
   }
-  return z.object(shape);
+
+  return shape;
+}
+
+export function projectionSchema<T extends TypeRecordWithChildren>(record: T) {
+  return z.object(projectionSchemaShape(record));
 }

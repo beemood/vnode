@@ -1,4 +1,4 @@
-import { errorMessage } from '@vnode/types';
+import { errorMessage } from '@vnode/utils';
 import z from 'zod';
 
 export const DateSchemas = {
@@ -10,14 +10,18 @@ export const DateSchemas = {
       (value) => {
         return new Date(value) > new Date();
       },
-      { error: errorMessage(`FutureDateError: The date must be future date.`) }
+      {
+        error: errorMessage(
+          `NotFutureDateError: The date must be future date.`
+        ),
+      }
     ),
   pastDate: () =>
     z.iso.date().refine(
       (value) => {
         return new Date(value) < new Date();
       },
-      { error: errorMessage(`PastDateError: The date must be past date.`) }
+      { error: errorMessage(`NotPastDateError: The date must be past date.`) }
     ),
 
   weekday: () =>

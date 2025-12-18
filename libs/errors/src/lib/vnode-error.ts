@@ -1,4 +1,4 @@
-import { ErrorClassName, ErrorMessage, PackageName } from '@vnode/types';
+import type { ErrorClassName, ErrorMessage, PackageName } from '@vnode/types';
 
 export abstract class VnodeError extends Error {
   protected static packageName?: string;

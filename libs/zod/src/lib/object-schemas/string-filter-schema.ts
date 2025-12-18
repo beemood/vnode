@@ -18,7 +18,7 @@ export const stringFilterSchema = () => {
   return StringSchemas.string().or(
     z.object({
       ...shape(),
-      not: StringSchemas.string().or(z.object(shape())),
+      not: StringSchemas.string().or(z.object(shape())).optional(),
     })
   );
 };

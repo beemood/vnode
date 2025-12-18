@@ -1,5 +1,5 @@
 import { isEAN13 } from '@vnode/barcode';
-import { InvalidBarcodeError } from '@vnode/errors';
+import { errorMessage } from '@vnode/types';
 import z from 'zod';
 
 export const StringSchemas = {
@@ -10,16 +10,17 @@ export const StringSchemas = {
   email: () => z.email(),
   uuid7: () => z.uuidv7(),
   uuid4: () => z.uuidv4(),
-  slug: () => z.string().regex(/^[a-z-]{1,}$/),
+  slug: () => z.string().slugify(),
   ean13: () =>
-    z.string().refine((value) => {
-      if (isEAN13(value)) {
-        return value;
-      }
-      throw new InvalidBarcodeError(
-        `The value, ${value}, is not a valid barcode.`
-      );
-    }),
+    z.string().refine(
+      (value) => {
+        if (isEAN13(value)) {
+          return true;
+        }
+        return false;
+      },
+      { error: errorMessage('NotEanError: The value must be a valid ean.') }
+    ),
   orderDirection: () => z.enum(['asc', 'desc', 'ASC', 'DESC']),
   enums: (names: string[]) => z.enum(names),
 };

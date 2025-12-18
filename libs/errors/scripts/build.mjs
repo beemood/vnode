@@ -18,7 +18,7 @@ function printErrorClass(name) {
 
 const requiredImports = `
 import { VnodeError } from './vnode-error.js';
-import { Message } from '@vnode/types';
+import type { Message } from '@vnode/types';
 `;
 
 const listOfErrors = new Set([
@@ -26,6 +26,13 @@ const listOfErrors = new Set([
   'InvalidFormat',
   'PatternMismatch',
   'NotNumber',
+  'NotDate',
+  'NotFutureDate',
+  'NotPastDate',
+  'NotAfternoon',
+  'NotMorgning',
+  'NotEvening',
+  'NotNight',
   'NotEvenNumber',
   'NotOddNumber',
   'NotInteger',
@@ -37,6 +44,8 @@ const listOfErrors = new Set([
   'Encoding',
   'MalformedJSON',
   'InvalidDate',
+  'InvalidEncriptedData',
+  'InvalidJson',
   'Undefined',
   'Missing',
   'Required',

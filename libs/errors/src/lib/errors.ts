@@ -1,6 +1,6 @@
 
 import { VnodeError } from './vnode-error.js';
-import { Message } from '@vnode/types';
+import type { Message } from '@vnode/types';
 
 export class TypeError extends VnodeError {
    constructor(message: Message = '') {
@@ -20,6 +20,41 @@ export class PatternMismatchError extends VnodeError {
 export class NotNumberError extends VnodeError {
    constructor(message: Message = '') {
        super(`NotNumberError: ${message}`, 'NotNumberError');
+   }
+}
+export class NotDateError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotDateError: ${message}`, 'NotDateError');
+   }
+}
+export class NotFutureDateError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotFutureDateError: ${message}`, 'NotFutureDateError');
+   }
+}
+export class NotPastDateError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotPastDateError: ${message}`, 'NotPastDateError');
+   }
+}
+export class NotAfternoonError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotAfternoonError: ${message}`, 'NotAfternoonError');
+   }
+}
+export class NotMorgningError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotMorgningError: ${message}`, 'NotMorgningError');
+   }
+}
+export class NotEveningError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotEveningError: ${message}`, 'NotEveningError');
+   }
+}
+export class NotNightError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`NotNightError: ${message}`, 'NotNightError');
    }
 }
 export class NotEvenNumberError extends VnodeError {
@@ -70,6 +105,16 @@ export class MalformedJSONError extends VnodeError {
 export class InvalidDateError extends VnodeError {
    constructor(message: Message = '') {
        super(`InvalidDateError: ${message}`, 'InvalidDateError');
+   }
+}
+export class InvalidEncriptedDataError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`InvalidEncriptedDataError: ${message}`, 'InvalidEncriptedDataError');
+   }
+}
+export class InvalidJsonError extends VnodeError {
+   constructor(message: Message = '') {
+       super(`InvalidJsonError: ${message}`, 'InvalidJsonError');
    }
 }
 export class UndefinedError extends VnodeError {

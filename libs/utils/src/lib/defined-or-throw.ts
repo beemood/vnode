@@ -1,5 +1,5 @@
 import { UndefinedError } from '@vnode/errors';
-import { Some } from '@vnode/types';
+import type { Some } from '@vnode/types';
 import { isDate } from './is-date.js';
 import { isNumber } from './is-number.js';
 import { isString } from './is-string.js';
