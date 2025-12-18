@@ -1,14 +1,20 @@
 import { MismatchError } from '@vnode/errors';
-import { getStringFiledMetadata } from '../common/get-field-metadata.js';
+import {
+  getNumberFieldMetadata,
+  getStringFiledMetadata,
+} from '../common/get-field-metadata.js';
 import { isRequiredField } from '../common/is-required-field.js';
 import { NameSuffixes } from '../common/name-suffixes.js';
 import type { PrismaScalarType } from '../common/prisma-scalar-type.js';
 import type { Field } from '../prisma/types.js';
 
 export function ownCreateField(field: Field) {
+  const validationparts: string[] = [];
   const schemaParts: string[] = [];
 
   const push = (part: string) => schemaParts.push(part);
+
+  const pushValidation = (part: string) => validationparts.push(part);
 
   switch (field.kind) {
     case 'scalar': {
@@ -19,11 +25,11 @@ export function ownCreateField(field: Field) {
           const metadata = getStringFiledMetadata(field);
 
           if (metadata.min != undefined) {
-            push(`.min(${metadata.min})`);
+            pushValidation(`.min(${metadata.min})`);
           }
 
           if (metadata.max != undefined) {
-            push(`.max(${metadata.max})`);
+            pushValidation(`.max(${metadata.max})`);
           }
 
           break;
@@ -33,14 +39,14 @@ export function ownCreateField(field: Field) {
         case 'Decimal': {
           push(`z.coerce.number()`);
 
-          const metadata = getStringFiledMetadata(field);
+          const metadata = getNumberFieldMetadata(field);
 
           if (metadata.min != undefined) {
-            push(`.min(${metadata.min})`);
+            pushValidation(`.min(${metadata.min})`);
           }
 
           if (metadata.max != undefined) {
-            push(`.max(${metadata.max})`);
+            pushValidation(`.max(${metadata.max})`);
           }
           break;
         }
@@ -48,14 +54,14 @@ export function ownCreateField(field: Field) {
         case 'Integer': {
           push(`z.coerce.number().int()`);
 
-          const metadata = getStringFiledMetadata(field);
+          const metadata = getNumberFieldMetadata(field);
 
           if (metadata.min != undefined) {
-            push(`.min(${metadata.min})`);
+            pushValidation(`.min(${metadata.min})`);
           }
 
           if (metadata.max != undefined) {
-            push(`.max(${metadata.max})`);
+            pushValidation(`.max(${metadata.max})`);
           }
           break;
         }
@@ -85,6 +91,16 @@ export function ownCreateField(field: Field) {
     }
     case 'enum': {
       push(`${field.type}${NameSuffixes.Enum}`);
+
+      const metadata = getStringFiledMetadata(field);
+
+      if (metadata.min != undefined) {
+        pushValidation(`.min(${metadata.min})`);
+      }
+
+      if (metadata.max != undefined) {
+        pushValidation(`.max(${metadata.max})`);
+      }
       break;
     }
     case 'object':
@@ -101,8 +117,10 @@ export function ownCreateField(field: Field) {
   }
 
   if (!isRequiredField(field)) {
-    push('.optional()');
+    pushValidation('.optional()');
   }
 
-  return schemaParts.join('');
+  const schema = [schemaParts.join(''), validationparts.join('')].join('');
+
+  return `${field.name}: ${schema}`;
 }
