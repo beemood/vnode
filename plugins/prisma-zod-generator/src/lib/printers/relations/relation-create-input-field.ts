@@ -4,10 +4,10 @@ import { isRequiredField } from '../../common/is-required-field.js';
 import type { Field } from '../../prisma/types.js';
 
 /**
- * In the create schema, the relation fields will use this function to be defined.
- * In the create schema, the relation fields either be Internal.ModelManyRelationCreate() or Internal.ModelRelationCreate() schema.
- * @param field
- * @returns
+ * Determine the relations' type (one or many), and required or optional,
+ * Then return the dedicated RelationCreate or ManyRelationCreate schema string
+ * @param field {@link Field}
+ * @returns object schema field string
  */
 export function relationCreateInputField(field: Field) {
   switch (field.kind) {

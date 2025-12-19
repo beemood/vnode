@@ -524,6 +524,9 @@ export const CategoryScalarFieldEnum = {
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
   name: 'name',
+  description: 'description',
+  status: 'status',
+  statuses: 'statuses',
   parentId: 'parentId'
 } as const
 
@@ -599,6 +602,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Status'
+ */
+export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+/**
+ * Reference to a field of type 'Status[]'
+ */
+export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
     
 
 

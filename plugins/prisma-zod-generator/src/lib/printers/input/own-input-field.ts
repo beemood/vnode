@@ -4,8 +4,8 @@ import {
   getStringFiledMetadata,
 } from '../../common/get-field-metadata.js';
 import { isRequiredField } from '../../common/is-required-field.js';
-import { NameSuffixes } from '../../common/name-suffixes.js';
 import type { PrismaScalarType } from '../../common/prisma-scalar-type.js';
+import { schemaName } from '../../common/schema-name.js';
 import type { Field } from '../../prisma/types.js';
 
 export function ownInputField(field: Field) {
@@ -89,7 +89,7 @@ export function ownInputField(field: Field) {
       break;
     }
     case 'enum': {
-      push(`${field.type}${NameSuffixes.Enum}`);
+      push(schemaName(field.type, 'Enum') + '()');
 
       const metadata = getStringFiledMetadata(field);
 

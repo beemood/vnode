@@ -3,8 +3,18 @@ generator client {
   output   = "../src/lib/prisma"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+}
+
 datasource db {
   provider = "postgresql"
+}
+
+enum Status {
+  OPEN
+  CLOSE
+  IN_PROGRESS
 }
 
 model Category {
@@ -15,8 +25,10 @@ model Category {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  name        String  @unique @db.VarChar(255)
+  name        String   @unique @db.VarChar(255)
   description String?
+  status      Status
+  statuses    Status[]
 
   parent   Category? @relation("children", fields: [parentId], references: [id])
   parentId Int?

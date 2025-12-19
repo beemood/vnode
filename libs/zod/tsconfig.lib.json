@@ -21,6 +21,12 @@
     {
       "path": "../barcode/tsconfig.lib.json"
     },
+    {
+      "path": "../types/tsconfig.lib.json"
+    },
+    {
+      "path": "../utils/tsconfig.lib.json"
+    },
   ],
   "exclude": [
     "vite.config.ts",

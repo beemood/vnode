@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
-    "vitest": "^4.0.0",
-    "@vnode/types": "workspace:*"
+    "@vnode/types": "workspace:*",
+    "vitest": "^4.0.0"
   }
 }

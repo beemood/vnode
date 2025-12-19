@@ -42,8 +42,10 @@
   },
   "dependencies": {
     "@prisma/client": "^7.2.0",
+    "@prisma/generator-helper": "^7.2.0",
     "@swc/helpers": "~0.5.11",
     "@vnode/errors": "workspace:*",
+    "@vnode/fs": "workspace:*",
     "@vnode/utils": "workspace:*",
     "vitest": "^4.0.0"
   }

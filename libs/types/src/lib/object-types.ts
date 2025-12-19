@@ -1,3 +1,4 @@
+import type { Any } from './other-types.js';
 import type { PropertyType } from './property-type.js';
 
 export type RecordKey = string | symbol | number;
@@ -40,5 +41,6 @@ export type ArrayTypeRecord<K extends RecordKey = string> = ArrayRecord<
   PropertyType
 >;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyRecord = Record<RecordKey, any>;
+export type AnyRecord = Record<RecordKey, Any>;
+
+export type AnyArray = Array<Any>;

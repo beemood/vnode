@@ -1,86 +1,94 @@
 import { MismatchError } from '@vnode/errors';
 import { externalName } from '../../common/external-name.js';
-import { internalName } from '../../common/internal-name.js';
 import type { PrismaScalarType } from '../../common/prisma-scalar-type.js';
+import { schemaName } from '../../common/schema-name.js';
 import type { Field } from '../../prisma/types.js';
 
 export function ownWhereField(field: Field) {
-  switch (field.kind) {
-    case 'scalar': {
-      switch (field.type as PrismaScalarType) {
-        case 'String': {
-          if (field.isList) {
-            return `${externalName('ArrayStringFilter')}().optional()`;
-          }
-          return `${externalName('StringFilter')}.optional()`;
-        }
-        case 'Number':
-        case 'Float':
-        case 'Decimal': {
-          {
+  const getType = () => {
+    switch (field.kind) {
+      case 'scalar': {
+        switch (field.type as PrismaScalarType) {
+          case 'String': {
             if (field.isList) {
-              return `${externalName('ArrayNumberFilter')}().optional()`;
+              return `${externalName('arrayStringFilterSchema')}().optional()`;
             }
-            return `${externalName('NumberFilter')}.optional()`;
+            return `${externalName('stringFilterSchema')}().optional()`;
           }
-        }
-        case 'Int':
-        case 'Integer': {
-          if (field.isList) {
-            return `${externalName('ArrayIntegerFilter')}().optional()`;
+          case 'Number':
+          case 'Float':
+          case 'Decimal': {
+            {
+              if (field.isList) {
+                return `${externalName(
+                  'arrayNumberFilterSchema'
+                )}().optional()`;
+              }
+              return `${externalName('numberFilterSchema')}().optional()`;
+            }
           }
-          return `${externalName('IntegerFilter')}.optional()`;
-        }
-        case 'Boolean':
-        case 'Bool': {
-          if (field.isList) {
-            return `${externalName('ArrayBooleanFilter')}().optional()`;
+          case 'Int':
+          case 'Integer': {
+            if (field.isList) {
+              return `${externalName('arrayIntegerFilterSchema')}().optional()`;
+            }
+            return `${externalName('integerFilterSchema')}().optional()`;
           }
-          return `${externalName('BooleanFilter')}.optional()`;
-        }
-        case 'Json':
-        case 'JSON': {
-          if (field.isList) {
-            return `${externalName('ArrayJsonFilter')}().optional()`;
+          case 'Boolean':
+          case 'Bool': {
+            if (field.isList) {
+              return `${externalName('arrayBooleanFilterSchema')}().optional()`;
+            }
+            return `${externalName('booleanFilterSchema')}().optional()`;
           }
-          return `${externalName('JsonFilter')}.optional()`;
-        }
-        case 'Date': {
-          if (field.isList) {
-            return `${externalName('ArrayDateFilter')}().optional()`;
+          case 'Json':
+          case 'JSON': {
+            if (field.isList) {
+              return `${externalName('arrayJsonFilterSchema')}().optional()`;
+            }
+            return `${externalName('jsonFilterSchema')}().optional()`;
           }
-          return `${externalName('DateFilter')}.optional()`;
-        }
-        case 'DateTime':
-        case 'Datetime':
-        case 'Timestamp': {
-          if (field.isList) {
-            return `${externalName('ArrayDateTimeFilter')}().optional()`;
+          case 'Date': {
+            if (field.isList) {
+              return `${externalName('arrayDateFilterSchema')}().optional()`;
+            }
+            return `${externalName('dateFilterSchema')}().optional()`;
           }
-          return `${externalName('DateTimeFilter')}.optional()`;
-        }
-        default: {
-          throw new MismatchError(
-            `The type, ${field.type}, is not supported here.`
-          );
+          case 'DateTime':
+          case 'Datetime':
+          case 'Timestamp': {
+            if (field.isList) {
+              return `${externalName(
+                'arrayDatetimeFilterSchema'
+              )}().optional()`;
+            }
+            return `${externalName('datetimeFilterSchema')}().optional()`;
+          }
+          default: {
+            throw new MismatchError(
+              `The type, ${field.type}, is not supported here.`
+            );
+          }
         }
       }
-    }
-    case 'enum': {
-      const enumFilter = internalName(field.type, 'EnumFilter');
-      const arrayEnumFilter = internalName(field.type, 'ArrayEnumFilter');
+      case 'enum': {
+        const enumFilter = schemaName(field.type, 'EnumFilter');
+        const arrayEnumFilter = schemaName(field.type, 'ArrayEnumFilter');
 
-      if (field.isList) {
-        return `${arrayEnumFilter}().optional()`;
-      } else {
-        return `${enumFilter}().optional()`;
+        if (field.isList) {
+          return `${arrayEnumFilter}().optional()`;
+        } else {
+          return `${enumFilter}().optional()`;
+        }
+      }
+      case 'object':
+      case 'unsupported': {
+        throw new MismatchError(
+          `The field kind, ${field.kind}, is not supported here.`
+        );
       }
     }
-    case 'object':
-    case 'unsupported': {
-      throw new MismatchError(
-        `The field kind, ${field.kind}, is not supported here.`
-      );
-    }
-  }
+  };
+
+  return `${field.name}: ${getType()}`;
 }

@@ -1,4 +1,6 @@
 import { MismatchError } from '@vnode/errors';
+import { internalName } from '../../common/internal-name.js';
+import { isRequiredField } from '../../common/is-required-field.js';
 import type { Field } from '../../prisma/types.js';
 import { relationCreateInputField } from '../relations/relation-create-input-field.js';
 import { ownInputField } from './own-input-field.js';
@@ -14,8 +16,16 @@ import { ownInputField } from './own-input-field.js';
 export function createInputField(field: Field) {
   switch (field.kind) {
     case 'scalar':
-    case 'enum':
       return ownInputField(field);
+    case 'enum': {
+      const schema = internalName(field.type, 'Enum');
+      const optional = isRequiredField(field) ? '' : '.optional()';
+      if (field.isList) {
+        return `${field.name}: ${schema}.array()${optional}`;
+      } else {
+        return `${field.name}: ${schema}.array()${optional}`;
+      }
+    }
     case 'object': {
       return relationCreateInputField(field);
     }

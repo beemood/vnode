@@ -1,20 +1,18 @@
 export const ExternalSchemaNames = {
-  StringFilter: 'StringFilter',
-  NumberFilter: 'NumberFilter',
-  IntegerFilter: 'IntegerFilter',
-  BooleanFilter: 'BooleanFilter',
-  JsonFilter: 'JsonFilter',
-  DateFilter: 'DateFilter',
-  DateTimeFilter: 'DateTimeFilter',
-
-  ArrayStringFilter: 'ArrayStringFilter',
-  ArrayNumberFilter: 'ArrayNumberFilter',
-  ArrayIntegerFilter: 'ArrayIntegerFilter',
-  ArrayBooleanFilter: 'ArrayBooleanFilter',
-  ArrayJsonFilter: 'ArrayJsonFilter',
-
-  ArrayDateFilter: 'ArrayDateFilter',
-  ArrayDateTimeFilter: 'ArrayDateTimeFilter',
+  stringFilterSchema: 'stringFilterSchema',
+  numberFilterSchema: 'numberFilterSchema',
+  integerFilterSchema: 'integerFilterSchema',
+  booleanFilterSchema: 'booleanFilterSchema',
+  jsonFilterSchema: 'jsonFilterSchema',
+  dateFilterSchema: 'dateFilterSchema',
+  datetimeFilterSchema: 'datetimeFilterSchema',
+  arrayStringFilterSchema: 'arrayStringFilterSchema',
+  arrayNumberFilterSchema: 'arrayNumberFilterSchema',
+  arrayIntegerFilterSchema: 'arrayIntegerFilterSchema',
+  arrayBooleanFilterSchema: 'arrayBooleanFilterSchema',
+  arrayJsonFilterSchema: 'arrayJsonFilterSchema',
+  arrayDateFilterSchema: 'arrayDateFilterSchema',
+  arrayDatetimeFilterSchema: 'arrayDatetimeFilterSchema',
 };
 
 export const InternalNameSuffixes = {

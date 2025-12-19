@@ -1,8 +1,14 @@
-import { internalName } from '../../common/internal-name.js';
+import { schemaName } from '../../common/schema-name.js';
 import type { Model } from '../../prisma/types.js';
 
+/**
+ *
+ *
+ * @param model {@link Model}
+ * @returns schema string
+ */
 export function relationCreateInput(model: Model) {
-  const ownCreate = internalName(model.name, 'OwnCreate');
+  const ownCreate = schemaName(model.name, 'OwnCreate');
 
   return [
     `z.union([`,

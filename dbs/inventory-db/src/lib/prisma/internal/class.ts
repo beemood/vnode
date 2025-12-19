@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/lib/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Category {\n  id        Int       @id @default(autoincrement())\n  uuid      String    @unique @default(uuid(7))\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n  deletedAt DateTime?\n\n  name String @unique @db.VarChar(255)\n\n  parent   Category? @relation(\"children\", fields: [parentId], references: [id])\n  parentId Int?\n\n  children Category[] @relation(\"children\")\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/lib/prisma\"\n}\n\ngenerator zod {\n  provider = \"prisma-zod-generator\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Status {\n  OPEN\n  CLOSE\n  IN_PROGRESS\n}\n\nmodel Category {\n  id   Int    @id @default(autoincrement())\n  uuid String @unique @default(uuid(7))\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n  deletedAt DateTime?\n\n  name        String   @unique @db.VarChar(255)\n  description String?\n  status      Status\n  statuses    Status[]\n\n  parent   Category? @relation(\"children\", fields: [parentId], references: [id])\n  parentId Int?\n\n  children Category[] @relation(\"children\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"parent\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"children\"},{\"name\":\"parentId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"children\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"children\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"Status\"},{\"name\":\"statuses\",\"kind\":\"enum\",\"type\":\"Status\"},{\"name\":\"parent\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"children\"},{\"name\":\"parentId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"children\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"children\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
