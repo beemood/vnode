@@ -262,6 +262,9 @@ importers:
       '@vnode/errors':
         specifier: workspace:*
         version: link:../../libs/errors
+      '@vnode/names':
+        specifier: workspace:*
+        version: link:../../libs/names
       '@vnode/utils':
         specifier: workspace:*
         version: link:../../libs/utils

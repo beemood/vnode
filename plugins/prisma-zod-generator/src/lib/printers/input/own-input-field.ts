@@ -2,19 +2,18 @@ import { MismatchError } from '@vnode/errors';
 import {
   getNumberFieldMetadata,
   getStringFiledMetadata,
-} from '../common/get-field-metadata.js';
-import { isRequiredField } from '../common/is-required-field.js';
-import { NameSuffixes } from '../common/name-suffixes.js';
-import type { PrismaScalarType } from '../common/prisma-scalar-type.js';
-import type { Field } from '../prisma/types.js';
+} from '../../common/get-field-metadata.js';
+import { isRequiredField } from '../../common/is-required-field.js';
+import { NameSuffixes } from '../../common/name-suffixes.js';
+import type { PrismaScalarType } from '../../common/prisma-scalar-type.js';
+import type { Field } from '../../prisma/types.js';
 
-export function ownCreateField(field: Field) {
-  const validationparts: string[] = [];
+export function ownInputField(field: Field) {
+  const validationSchemaParts: string[] = [];
   const schemaParts: string[] = [];
 
   const push = (part: string) => schemaParts.push(part);
-
-  const pushValidation = (part: string) => validationparts.push(part);
+  const pushValidation = (part: string) => validationSchemaParts.push(part);
 
   switch (field.kind) {
     case 'scalar': {
@@ -37,7 +36,7 @@ export function ownCreateField(field: Field) {
         case 'Number':
         case 'Float':
         case 'Decimal': {
-          push(`z.coerce.number()`);
+          push(`z.number()`);
 
           const metadata = getNumberFieldMetadata(field);
 
@@ -52,7 +51,7 @@ export function ownCreateField(field: Field) {
         }
         case 'Int':
         case 'Integer': {
-          push(`z.coerce.number().int()`);
+          push(`z.int()`);
 
           const metadata = getNumberFieldMetadata(field);
 
@@ -67,7 +66,7 @@ export function ownCreateField(field: Field) {
         }
         case 'Boolean':
         case 'Bool': {
-          push('z.coerce.boolean()');
+          push('z.boolean()');
           break;
         }
         case 'Json':
@@ -120,7 +119,9 @@ export function ownCreateField(field: Field) {
     pushValidation('.optional()');
   }
 
-  const schema = [schemaParts.join(''), validationparts.join('')].join('');
+  const schema = [schemaParts.join(''), validationSchemaParts.join('')].join(
+    ''
+  );
 
   return `${field.name}: ${schema}`;
 }
