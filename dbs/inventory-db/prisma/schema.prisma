@@ -12,41 +12,59 @@ datasource db {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  uuid String @unique @default(uuid(7))
-
+  id        Int       @id @default(autoincrement())
+  uuid      String    @unique @default(uuid(7))
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  /// @max(255)
+  /// @min(3) @max(255)
   name String @unique @db.VarChar(255)
 
   /// @max(2000)
   description String?
 
-  parent   Category? @relation("children", fields: [parentId], references: [id])
+  icon String @default("❓") @db.VarChar(10)
+
+  parent Category? @relation("children", fields: [parentId], references: [id])
+
   parentId Int?
 
   children Category[] @relation("children")
+
+  /// @readonly 
   products Product[]
 }
 
-model Product {
-  id   Int    @id @default(autoincrement())
-  uuid String @unique @default(uuid(7))
-
+model Tag {
+  id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  /// @max(255) @min(3)
+  ///  @min(1) @max(255)
+  name String @unique
+
+  /// @max(400)
+  description String?
+
+  productTags ProductTag[]
+}
+
+model Product {
+  id        Int       @id @default(autoincrement())
+  uuid      String    @unique @default(uuid(7))
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  ///  @min(3) @max(255)
   name String @unique @db.VarChar(255)
 
   description String?
 
-  /// @format(ean13)
-  upc String @unique
+  /// @format(ean13) generate this barcode from the actual upc prefix
+  barcode String @unique @db.VarChar(50)
 
   /// @min(6) @max(13)
   sku String @unique
@@ -58,7 +76,53 @@ model Product {
   parentId Int?
 
   variants Product[] @relation("variants")
-  images   Image[]
+
+  images Image[]
+
+  /// @internal
+  batches Batch[]
+
+  tags ProductTag[]
+}
+
+model ProductTag {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  product   Product @relation(fields: [productId], references: [id])
+  tag       Tag     @relation(fields: [tagId], references: [id])
+  productId Int
+  tagId     Int
+
+  icon String @default("❓") @db.VarChar(10)
+
+  @@index([tagId])
+  @@index([productId])
+}
+
+/// The batch code should be on the product's label to track the batches
+/// Make sure to sell the first commming products before the new ones.
+/// Generate the batch code using @vnode/barcode generator (ean13).
+/// Use the actual product barcode as prefix
+model Batch {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  receivedAt DateTime?
+
+  /// @readonly @format(ean13) Generate and include this barcode to your product label to see the batch information
+  barcode String @unique @db.VarChar(50)
+
+  /// Manufacturer's unique product code
+  /// @min(12)  @max(13)
+  upc String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 }
 
 model Image {
@@ -68,12 +132,18 @@ model Image {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  title       String?
+  title       String? @db.VarChar(2550)
   description String?
 
-  /// @format(url)
-  url String
+  /// @format(url) 
+  url String @unique
 
-  product   Product @relation(fields: [productId], references: [id])
+  order Int @default(autoincrement())
+
+  product Product @relation(fields: [productId], references: [id])
+
   productId Int
+
+  @@index([productId])
+  @@index([title])
 }
