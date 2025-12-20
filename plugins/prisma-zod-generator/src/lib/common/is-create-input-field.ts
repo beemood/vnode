@@ -5,11 +5,12 @@ import { isTimestampField } from './is-timestamp-field.js';
 
 export function isCreateInputField(field: Field) {
   if (
+    field.isReadOnly ||
     isGeneratedField(field) ||
     isTimestampField(field) ||
     isInternalField(field)
   ) {
     return false;
   }
-  return true; 
+  return true;
 }

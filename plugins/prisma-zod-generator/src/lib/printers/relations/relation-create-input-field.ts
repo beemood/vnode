@@ -10,21 +10,19 @@ import type { Field } from '../../prisma/types.js';
  * @returns object schema field string
  */
 export function relationCreateInputField(field: Field) {
+  console.log('relationToFields: ', field.relationToFields);
+  console.log('relationFromFields: ', field.relationFromFields);
   switch (field.kind) {
     case 'object': {
       if (field.isList) {
         const schema = `${internalName(field.type, 'ManyRelationCreate')}()`;
-        if (isRequiredField(field)) {
-          return `${schema}`;
-        } else {
-          return `${schema}.optional()`;
-        }
+        return `${field.name}: ${schema}.optional()`;
       } else {
         const schema = `${internalName(field.type, 'RelationCreate')}()`;
         if (isRequiredField(field)) {
-          return `${schema}`;
+          return `${field.name}: ${schema}`;
         }
-        return `${schema}.optional()`;
+        return `${field.name}: ${schema}.optional()`;
       }
     }
     case 'scalar':

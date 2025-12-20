@@ -46,6 +46,7 @@
     "@swc/helpers": "~0.5.11",
     "@vnode/errors": "workspace:*",
     "@vnode/fs": "workspace:*",
+    "@vnode/names": "workspace:*",
     "@vnode/utils": "workspace:*",
     "vitest": "^4.0.0"
   }

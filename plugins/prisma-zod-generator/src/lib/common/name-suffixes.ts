@@ -26,19 +26,11 @@ export const InternalNameSuffixes = {
 
   RelationUpdate: 'RelationUpdate',
   ManyRelationUpdate: 'ManyRelationUpdate',
+  ManyRelationWhere: 'ManyRelationWhere',
 
   // parent:{ include, omit, select, where}
 
   OwnQuery: 'OwnQuery',
-  // Each model should have such schema that will be used by a model that has many relation with this model
-  // {
-  //  distinct: ProductDistinct,
-  //  select: ProductOwnProjection,
-  //  orderBy:ProducOwnOrderBy,
-  //  skip: number,
-  //  take: number
-  //  where:ProductOwnWhere
-  //  },
   OwnManyQuery: 'OwnManyQuery',
 
   Distinct: 'Distinct',
@@ -55,9 +47,9 @@ export const MainNameSuffixes = {
   Projection: 'Projection',
   OrderBy: 'OrderBy',
   Where: 'Where',
-  // All schemas of the model-field enums are suffixed by this such as `ProductDistinct = z.enum(['id', 'name', 'description'])`
-
-  // All schemas of enum types in the prisma-schema are suffixed by this such as `StatusEnum = z.enum(["OPEN", "CLOSED", "IN_PROGRESS"])`
+  Query: 'Query',
+  QueryMany: 'QueryMany',
+  Distinct: 'Distinct',
 };
 
 export const NameSuffixes = {

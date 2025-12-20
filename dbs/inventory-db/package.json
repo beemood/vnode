@@ -39,7 +39,6 @@
   "dependencies": {
     "@prisma/client": "^7.2.0",
     "@swc/helpers": "~0.5.11",
-    "@vnode/utils": "workspace:*",
     "@vnode/zod": "workspace:*",
     "dotenv": "17.2.3",
     "prisma": "7.2.0",

@@ -3,6 +3,7 @@ import type { Field } from '../prisma/types.js';
 
 export function isReadonlyField(field: Field): boolean {
   return (
-    isString(field.documentation) && field.documentation.includes('@readonly')
+    field.isReadOnly ||
+    (isString(field.documentation) && field.documentation.includes('@readonly'))
   );
 }

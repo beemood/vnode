@@ -1,19 +1,23 @@
-import { dec } from '../common/dec.js';
-import { schemaName } from '../common/schema-name.js';
-import type { Datamodel } from '../prisma/types.js';
-import { distinct } from './enums/distinct.js';
-import { enumModel } from './enums/enum-model.js';
-import { ownCreateInput } from './input/own-create-input.js';
-import { ownUpdateInput } from './input/own-update-input.js';
-import { ownOrderBy } from './order/own-order-by.js';
-import { ownProjection } from './projection/own-projection.js';
-import { enumArrayFilter } from './query/enum-array-filter.js';
-import { enumFilter } from './query/enum-filter.js';
-import { ownManyQuery } from './query/own-many-query.js';
-import { ownQuery } from './query/own-query.js';
-import { ownWhere } from './query/own-where.js';
-import { manyRelationCreateInput } from './relations/many-relation-create-input.js';
-import { relationCreateInput } from './relations/relation-create-input.js';
+import { dec } from '../../common/dec.js';
+import { importExternal } from '../../common/import-external.js';
+import { schemaName } from '../../common/schema-name.js';
+import type { Datamodel } from '../../prisma/types.js';
+import { distinct } from '../enums/distinct.js';
+import { enumModel } from '../enums/enum-model.js';
+import { ownCreateInput } from '../input/own-create-input.js';
+import { ownUpdateInput } from '../input/own-update-input.js';
+import { ownOrderBy } from '../order/own-order-by.js';
+import { ownProjection } from '../projection/own-projection.js';
+import { enumArrayFilter } from '../query/enum-array-filter.js';
+import { enumFilter } from '../query/enum-filter.js';
+import { manyRelationWhere } from '../query/many-relation-where.js';
+import { ownManyQuery } from '../query/own-many-query.js';
+import { ownQuery } from '../query/own-query.js';
+import { ownWhere } from '../query/own-where.js';
+import { manyRelationCreateInput } from '../relations/many-relation-create-input.js';
+import { manyRelationUpdateInput } from '../relations/many-relation-update-input.js';
+import { relationCreateInput } from '../relations/relation-create-input.js';
+import { relationUpdateInput } from '../relations/relation-update-input.js';
 
 /**
  * Create the model distinct enums, enum schemas, enum filter, enum array filter, and all own schemas.
@@ -21,12 +25,7 @@ import { relationCreateInput } from './relations/relation-create-input.js';
  * @returns
  */
 export function internalSchemas(datamodel: Datamodel) {
-  const schemas: string[] = [
-    "import z from 'zod';",
-    "import * as External from '@vnode/zod';",
-    '',
-    '',
-  ];
+  const schemas: string[] = ["import z from 'zod';", importExternal(), '', ''];
 
   const models = datamodel.models;
   const enums = datamodel.enums;
@@ -121,7 +120,7 @@ export function internalSchemas(datamodel: Datamodel) {
   }
 
   //
-  // Own order-by schemas: export const CategoryOwnProjection = z.object({ id: z.enum(['asc', 'desc']).optinoal(),...})
+  // Own where schemas: export const CategoryOwnProjection = z.object({ id: z.enum(['asc', 'desc']).optinoal(),...})
   {
     schemas.push('');
     schemas.push('// ');
@@ -132,6 +131,21 @@ export function internalSchemas(datamodel: Datamodel) {
     for (const model of models) {
       const name = schemaName(model.name, 'OwnWhere');
       const schema = ownWhere(model);
+      schemas.push(dec(name, schema));
+    }
+  }
+  //
+  // Own many relation where schemas: export const CategoryOwnProjection = z.object({ id: z.enum(['asc', 'desc']).optinoal(),...})
+  {
+    schemas.push('');
+    schemas.push('// ');
+    schemas.push('// Own many relation where schemas');
+    schemas.push('// ');
+    schemas.push('');
+
+    for (const model of models) {
+      const name = schemaName(model.name, 'ManyRelationWhere');
+      const schema = manyRelationWhere(model);
       schemas.push(dec(name, schema));
     }
   }
@@ -167,7 +181,7 @@ export function internalSchemas(datamodel: Datamodel) {
   {
     schemas.push('');
     schemas.push('// ');
-    schemas.push('// Relation create intpu schemas');
+    schemas.push('// Relation create input schema');
     schemas.push('// ');
     schemas.push('');
 
@@ -183,6 +197,31 @@ export function internalSchemas(datamodel: Datamodel) {
       {
         const name = schemaName(model.name, 'ManyRelationCreate');
         const schema = manyRelationCreateInput(model);
+        schemas.push(dec(name, schema));
+      }
+    }
+  }
+  //
+  // Own create/update input schema: export const CategoryOwnCreate = z.object({ name: z.string().min(3).max(255), desc: z.string().optional() })
+  {
+    schemas.push('');
+    schemas.push('// ');
+    schemas.push('// Relation update input schema');
+    schemas.push('// ');
+    schemas.push('');
+
+    for (const model of models) {
+      // Relation create input
+      {
+        const name = schemaName(model.name, 'RelationUpdate');
+        const schema = relationUpdateInput(model);
+        schemas.push(dec(name, schema));
+      }
+
+      // Relation many create input
+      {
+        const name = schemaName(model.name, 'ManyRelationUpdate');
+        const schema = manyRelationUpdateInput(model);
         schemas.push(dec(name, schema));
       }
     }

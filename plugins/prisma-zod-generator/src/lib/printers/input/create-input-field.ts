@@ -15,15 +15,17 @@ import { ownInputField } from './own-input-field.js';
  */
 export function createInputField(field: Field) {
   switch (field.kind) {
-    case 'scalar':
+    case 'scalar': {
       return ownInputField(field);
+    }
     case 'enum': {
       const schema = internalName(field.type, 'Enum');
       const optional = isRequiredField(field) ? '' : '.optional()';
+
       if (field.isList) {
-        return `${field.name}: ${schema}.array()${optional}`;
+        return `${field.name}: ${schema}().array()${optional}`;
       } else {
-        return `${field.name}: ${schema}.array()${optional}`;
+        return `${field.name}: ${schema}()${optional}`;
       }
     }
     case 'object': {

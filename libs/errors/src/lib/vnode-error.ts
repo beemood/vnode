@@ -32,10 +32,6 @@ export abstract class VnodeError extends Error {
    * @param packageName
    */
   static setPackageName(packageName: PackageName) {
-    if (this.packageName == undefined) {
-      this.packageName = packageName;
-    } else {
-      throw new Error(`The error packageName is already defined!`);
-    }
+    this.packageName = packageName;
   }
 }

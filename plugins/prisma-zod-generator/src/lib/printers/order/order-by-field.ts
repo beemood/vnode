@@ -10,7 +10,7 @@ export function orderByField(field: Field) {
       return ownOrderByField(field);
     case 'object': {
       if (field.isList) {
-        return `z.object({ _count: z.enum(['ASC', 'DESC', 'asc', 'desc']) }).optional()`;
+        return `z.object({ _count: z.enum(['asc', 'desc']) }).optional()`;
       } else {
         const schema = schemaName(field.type, 'OwnOrderBy');
         return `${schema}().optional()`;

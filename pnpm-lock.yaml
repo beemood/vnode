@@ -194,9 +194,6 @@ importers:
       '@vnode/types':
         specifier: workspace:*
         version: link:../types
-      '@vnode/utils':
-        specifier: workspace:*
-        version: link:../utils
       js-yaml:
         specifier: ^4.1.1
         version: 4.1.1
@@ -297,6 +294,9 @@ importers:
       '@vnode/fs':
         specifier: workspace:*
         version: link:../../libs/fs
+      '@vnode/names':
+        specifier: workspace:*
+        version: link:../../libs/names
       '@vnode/utils':
         specifier: workspace:*
         version: link:../../libs/utils

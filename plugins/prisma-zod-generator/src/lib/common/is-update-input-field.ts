@@ -6,6 +6,7 @@ import { isTimestampField } from './is-timestamp-field.js';
 
 export function isUpdateInputField(field: Field) {
   if (
+    field.isReadOnly ||
     isGeneratedField(field) ||
     isTimestampField(field) ||
     isInternalField(field) ||
