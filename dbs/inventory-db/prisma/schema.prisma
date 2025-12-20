@@ -11,12 +11,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Status {
-  OPEN
-  CLOSE
-  IN_PROGRESS
-}
-
 model Category {
   id   Int    @id @default(autoincrement())
   uuid String @unique @default(uuid(7))
@@ -25,13 +19,61 @@ model Category {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  name        String   @unique @db.VarChar(255)
+  /// @max(255)
+  name String @unique @db.VarChar(255)
+
+  /// @max(2000)
   description String?
-  status      Status
-  statuses    Status[]
 
   parent   Category? @relation("children", fields: [parentId], references: [id])
   parentId Int?
 
   children Category[] @relation("children")
+  products Product[]
+}
+
+model Product {
+  id   Int    @id @default(autoincrement())
+  uuid String @unique @default(uuid(7))
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  /// @max(255) @min(3)
+  name String @unique @db.VarChar(255)
+
+  description String?
+
+  /// @format(ean13)
+  upc String @unique
+
+  /// @min(6) @max(13)
+  sku String @unique
+
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+
+  parent   Product? @relation("variants", fields: [parentId], references: [id])
+  parentId Int?
+
+  variants Product[] @relation("variants")
+  images   Image[]
+}
+
+model Image {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  title       String?
+  description String?
+
+  /// @format(url)
+  url String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 }

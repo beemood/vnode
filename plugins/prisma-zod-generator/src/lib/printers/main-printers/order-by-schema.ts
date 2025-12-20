@@ -8,5 +8,5 @@ import { orderBy } from '../order/order-by.js';
 export function orderBySchema(model: Model) {
   const name = schemaName(model.name, 'OrderBy');
   const schema = orderBy(model);
-  return [importZod(), importInternal(), dec(name, schema)];
+  return [importZod(), importInternal(), dec(name, schema)].join('\n');
 }

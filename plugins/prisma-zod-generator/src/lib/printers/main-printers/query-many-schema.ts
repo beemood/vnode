@@ -1,4 +1,5 @@
 import { dec } from '../../common/dec.js';
+import { importInternal } from '../../common/import-internal.js';
 import { importSchema } from '../../common/import-main.js';
 import { importZod } from '../../common/import-zod.js';
 import { schemaName } from '../../common/schema-name.js';
@@ -11,10 +12,10 @@ export function queryManySchema(model: Model) {
 
   return [
     importZod(),
+    importInternal(),
     importSchema(model.name, 'Where'),
     importSchema(model.name, 'OrderBy'),
     importSchema(model.name, 'Projection'),
-    importSchema(model.name, 'Distinct'),
     dec(name, schema),
   ].join('\n');
 }

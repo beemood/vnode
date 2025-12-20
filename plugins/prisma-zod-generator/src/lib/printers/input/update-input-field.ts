@@ -2,13 +2,13 @@ import { MismatchError } from '@vnode/errors';
 import { internalName } from '../../common/internal-name.js';
 import { isRequiredField } from '../../common/is-required-field.js';
 import type { Field } from '../../prisma/types.js';
-import { ownInputField } from './own-input-field.js';
+import { createInputField } from './create-input-field.js';
 
 export function updateInputField(field: Field) {
   switch (field.kind) {
     case 'scalar':
     case 'enum': {
-      return ownInputField(field);
+      return createInputField(field);
     }
     case 'object': {
       const optional = isRequiredField(field) ? '' : '.optional()';

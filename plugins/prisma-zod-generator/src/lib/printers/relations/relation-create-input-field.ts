@@ -10,8 +10,6 @@ import type { Field } from '../../prisma/types.js';
  * @returns object schema field string
  */
 export function relationCreateInputField(field: Field) {
-  console.log('relationToFields: ', field.relationToFields);
-  console.log('relationFromFields: ', field.relationFromFields);
   switch (field.kind) {
     case 'object': {
       if (field.isList) {

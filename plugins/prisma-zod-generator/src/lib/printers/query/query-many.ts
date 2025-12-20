@@ -1,3 +1,4 @@
+import { internalName } from '../../common/internal-name.js';
 import { schemaName } from '../../common/schema-name.js';
 import type { Model } from '../../prisma/types.js';
 
@@ -5,7 +6,7 @@ export function queryMany(model: Model) {
   const projection = schemaName(model.name, 'Projection');
   const where = schemaName(model.name, 'Where');
   const orderBy = schemaName(model.name, 'OrderBy');
-  const distinct = schemaName(model.name, 'Distinct');
+  const distinct = internalName(model.name, 'Distinct');
 
   return [
     `z.object({`,

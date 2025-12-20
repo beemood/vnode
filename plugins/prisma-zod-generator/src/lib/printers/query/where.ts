@@ -5,7 +5,7 @@ import { whereField } from './where-field.js';
 export function where(model: Model) {
   const filteredFields = model.fields.filter(isProjectionField);
 
-  const propertiesCode = filteredFields.map(whereField);
+  const propertiesCode = filteredFields.map(whereField).join(',\n');
 
-  return `z.object({ ${propertiesCode} })`;
+  return [`z.object({`, propertiesCode, `})`].join('\n');
 }

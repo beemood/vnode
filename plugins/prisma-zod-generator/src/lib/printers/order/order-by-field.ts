@@ -1,5 +1,5 @@
 import { MinimumError } from '@vnode/errors';
-import { schemaName } from '../../common/schema-name.js';
+import { internalName } from '../../common/internal-name.js';
 import type { Field } from '../../prisma/types.js';
 import { ownOrderByField } from './own-order-by-field.js';
 
@@ -10,10 +10,10 @@ export function orderByField(field: Field) {
       return ownOrderByField(field);
     case 'object': {
       if (field.isList) {
-        return `z.object({ _count: z.enum(['asc', 'desc']) }).optional()`;
+        return `${field.name}: z.object({ _count: z.enum(['asc', 'desc']) }).optional()`;
       } else {
-        const schema = schemaName(field.type, 'OwnOrderBy');
-        return `${schema}().optional()`;
+        const schema = internalName(field.type, 'OwnOrderBy');
+        return `${field.name}: ${schema}().optional()`;
       }
     }
     case 'unsupported': {

@@ -1,5 +1,5 @@
 import { MismatchError } from '@vnode/errors';
-import { schemaName } from '../../common/schema-name.js';
+import { internalName } from '../../common/internal-name.js';
 import type { Field } from '../../prisma/types.js';
 import { ownProjectionField } from './own-projection-field.js';
 
@@ -11,15 +11,14 @@ export function projectionField(field: Field) {
     }
     case 'object': {
       if (field.isList) {
-        const schema = schemaName(field.type, 'OwnManyQuery');
+        const schema = internalName(field.type, 'OwnManyQuery');
 
-        return `${schema}().optional()`;
+        return `${field.name}: ${schema}().optional()`;
       } else {
-        const schema = schemaName(field.type, 'OwnQuery');
-        return `${schema}().optional()`;
+        const schema = internalName(field.type, 'OwnQuery');
+        return `${field.name}: ${schema}().optional()`;
       }
     }
-
     case 'unsupported':
     default: {
       throw new MismatchError(
